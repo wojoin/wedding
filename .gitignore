@@ -1,15 +1,23 @@
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+coverage
+dist
+node_modules
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
 
-# Test binary, built with `go test -c`
-*.test
+# ide
+.idea
 
-# Output of the go coverage tool, specifically when used with LiteIDE
-*.out
+# Mac General
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+# umi
+.umi
+.umi-production
+
+# jslingui
+src/locales/_build
+src/locales/**/*.js
