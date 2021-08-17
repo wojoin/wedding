@@ -6,6 +6,7 @@ import { t } from "@lingui/macro"
 import { Trans } from "@lingui/macro"
 import { Link } from 'umi'
 import styles from './List.less'
+import { Rate } from 'antd';
 
 const { confirm } = Modal
 
@@ -26,66 +27,67 @@ class List extends PureComponent {
   }
 
   render() {
-    const { onDeleteItem, onEditItem, ...tableProps } = this.props
+    const { onDeleteItem, onEditItem, datasource, ...tableProps } = this.props
+
+    // this.props.dataSource.forEach(function (item, index) {
+    //   // let levelValue = item.level
+    //   this[index].level = "<Rate value=3 />"
+    // }, this.props.dataSource);
+
+    // var ds = this.props.dataSource
+    // console.log("==========ds===============\n", ds)
+
+    // for(var i = 0; i < ds["length"]; i++) {
+    //   ds[i].level = 3
+    // }
+
+    console.log("==========User List datasource===============\n", this.props.dataSource)
+    console.log("==========User List this.props===============", this.props)
 
     const columns = [
       {
-        title: <Trans>Avatar</Trans>,
+        title: <Trans><strong>图像</strong></Trans>,
         dataIndex: 'avatar',
         key: 'avatar',
-        width: '7%',
-        fixed: 'left',
-        render: text => <Avatar style={{ marginLeft: 8 }} src={text} />,
+        width: '5%',
+        render: text => <Avatar src={text} />,
       },
       {
-        title: <Trans>Name</Trans>,
+        title: <Trans><strong>名称</strong></Trans>,
         dataIndex: 'name',
         key: 'name',
+        // width: '12%',
         render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
       },
       {
-        title: <Trans>NickName</Trans>,
-        dataIndex: 'nickName',
-        key: 'nickName',
+        title: <Trans><strong>星级</strong></Trans>,
+        dataIndex: 'level',
+        key: 'level',
+        // width: '15%',
+        render: (text, record) => <Rate disabled value={record.level} />,
       },
       {
-        title: <Trans>Age</Trans>,
-        dataIndex: 'age',
-        width: '6%',
-        key: 'age',
-      },
-      {
-        title: <Trans>Gender</Trans>,
-        dataIndex: 'isMale',
-        key: 'isMale',
-        width: '7%',
-        render: text => <span>{text ? 'Male' : 'Female'}</span>,
-      },
-      {
-        title: <Trans>Phone</Trans>,
+        title: <Trans><strong>联系电话</strong></Trans>,
         dataIndex: 'phone',
         key: 'phone',
+        // width: '10%',
       },
       {
-        title: <Trans>Email</Trans>,
-        dataIndex: 'email',
-        key: 'email',
+        title: <Trans><strong>优惠(%)</strong></Trans>,
+        dataIndex: 'discount',
+        key: 'discount',
+        // width: '7%',
       },
       {
-        title: <Trans>Address</Trans>,
+        title: <Trans><strong>地址</strong></Trans>,
         dataIndex: 'address',
         key: 'address',
+        width: '20%',
       },
       {
-        title: <Trans>CreateTime</Trans>,
-        dataIndex: 'createTime',
-        key: 'createTime',
-      },
-      {
-        title: <Trans>Operation</Trans>,
+        title: <Trans><strong>操作</strong></Trans>,
         key: 'operation',
-        fixed: 'right',
-        width: '8%',
+        // width: '8%',
         render: (text, record) => {
           return (
             <DropOption
@@ -98,10 +100,18 @@ class List extends PureComponent {
           )
         },
       },
+      {
+        title: <Trans><strong>创建时间</strong></Trans>,
+        dataIndex: 'createTime',
+        key: 'createTime',
+        // width: '12%',
+      },
     ]
 
     return (
       <Table
+        columns={columns}
+        dataSource={datasource}
         {...tableProps}
         pagination={{
           ...tableProps.pagination,
@@ -110,7 +120,6 @@ class List extends PureComponent {
         className={styles.table}
         bordered
         scroll={{ x: 1200 }}
-        columns={columns}
         simple
         rowKey={record => record.id}
       />

@@ -4,6 +4,7 @@ import { Menu } from 'antd'
 import { NavLink, withRouter } from 'umi'
 import { pathToRegexp } from 'path-to-regexp'
 import { arrayToTree, queryAncestors } from 'utils'
+import { Scrollbars } from 'react-custom-scrollbars';
 import iconMap from 'utils/iconMap'
 import store from 'store'
 
@@ -92,22 +93,24 @@ class SiderMenu extends PureComponent {
         }
 
     return (
-      <Menu
-        mode="inline"
-        theme={theme}
-        onOpenChange={this.onOpenChange}
-        selectedKeys={selectedKeys}
-        onClick={
-          isMobile
-            ? () => {
-                onCollapseChange(true)
-              }
-            : undefined
-        }
-        {...menuProps}
-      >
-        {this.generateMenus(menuTree)}
-      </Menu>
+      <Scrollbars>
+        <Menu
+          mode="inline"
+          theme={theme}
+          onOpenChange={this.onOpenChange}
+          selectedKeys={selectedKeys}
+          onClick={
+            isMobile
+              ? () => {
+                  onCollapseChange(true)
+                }
+              : undefined
+          }
+          {...menuProps}
+        >
+          {this.generateMenus(menuTree)}
+        </Menu>
+      </Scrollbars>
     )
   }
 }

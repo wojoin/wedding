@@ -1,5 +1,6 @@
 import { Mock, Constant, randomAvatar } from './_utils'
 import qs from 'qs'
+import { Rate } from 'antd'
 
 const { ApiPrefix } = Constant
 
@@ -8,12 +9,14 @@ let usersListData = Mock.mock({
     {
       id: '@id',
       name: '@name',
-      nickName: '@last',
+      'level|1-5': 3,
+      // "level|1-5": "★",
       phone: /^1[34578]\d{9}$/,
-      'age|11-99': 1,
+      "discount|50-100": 90,
+      // 'age|11-99': 1,
       address: '@county(true)',
-      isMale: '@boolean',
-      email: '@email',
+      // isMale: '@boolean',
+      // email: '@email',
       createTime: '@datetime',
       avatar() {
         return randomAvatar()
@@ -119,6 +122,7 @@ module.exports = {
   },
 
   [`GET ${ApiPrefix}/user`](req, res) {
+    console.log("==============GET user============")
     const cookie = req.headers.cookie || ''
     const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
     const response = {}
@@ -143,6 +147,7 @@ module.exports = {
   },
 
   [`GET ${ApiPrefix}/users`](req, res) {
+    console.log("==============GET users============")
     const { query } = req
     let { pageSize, page, ...other } = query
     pageSize = pageSize || 10
@@ -164,6 +169,10 @@ module.exports = {
                 return now >= start && now <= end
               }
               return true
+            } else if(key === "level") {
+              return (
+                <Rate value={newData.level} />
+              )
             }
             return (
               String(item[key])
@@ -190,6 +199,7 @@ module.exports = {
 
   [`POST ${ApiPrefix}/user`](req, res) {
     const newData = req.body
+    console.log("===============POST user data============", newData)
     newData.createTime = Mock.mock('@now')
     newData.avatar =
       newData.avatar ||
@@ -198,7 +208,7 @@ module.exports = {
         Mock.Random.color(),
         '#757575',
         'png',
-        newData.nickName.substr(0, 1)
+        newData.name
       )
     newData.id = Mock.mock('@id')
 
@@ -208,6 +218,7 @@ module.exports = {
   },
 
   [`GET ${ApiPrefix}/user/:id`](req, res) {
+    console.log("==============GET user by id============")
     const { id } = req.params
     const data = queryArray(database, id, 'id')
     if (data) {
@@ -218,6 +229,7 @@ module.exports = {
   },
 
   [`DELETE ${ApiPrefix}/user/:id`](req, res) {
+    console.log("==============DELETE user by id============")
     const { id } = req.params
     const data = queryArray(database, id, 'id')
     if (data) {
@@ -229,13 +241,30 @@ module.exports = {
   },
 
   [`PATCH ${ApiPrefix}/user/:id`](req, res) {
+    console.log("==============UPDATE user by id============")
     const { id } = req.params
     const editItem = req.body
     let isExist = false
 
+    console.log("=============更新酒店信息===========", editItem)
+
     database = database.map(item => {
       if (item.id === id) {
         isExist = true
+
+        // 如果名字改变的话, 更新图片
+        if(item.name != editItem.name) {
+          editItem.avatar =
+          editItem.avatar ||
+          Mock.Random.image(
+            '100x100',
+            Mock.Random.color(),
+            '#757575',
+            'png',
+            editItem.name
+          )
+        }
+        
         return Object.assign({}, item, editItem)
       }
       return item

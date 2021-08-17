@@ -89,6 +89,8 @@ export default {
       if (success && user) {
         const { list } = yield call(queryRouteList)
         const { permissions } = user
+        // 所有的路由
+        console.log("==============route===========", list)
         let routeList = list
         if (
           permissions.role === ROLE_TYPE.ADMIN ||

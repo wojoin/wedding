@@ -17,28 +17,93 @@ const database = [
   {
     id: '2',
     breadcrumbParentId: '1',
-    name: 'Users',
+    name: '婚礼酒店',
     zh: {
-      name: '用户管理'
+      name: '婚礼酒店'
     },
     'pt-br': {
       name: 'Usuário'
     },
-    icon: 'user',
+    icon: 'home',
     route: '/user',
   },
   {
     id: '7',
     breadcrumbParentId: '1',
-    name: 'Posts',
+    name: '婚礼司仪',
     zh: {
-      name: '用户管理'
+      name: '婚礼司仪'
     },
     'pt-br': {
-      name: 'Posts'
+      name: '婚礼司仪'
     },
-    icon: 'shopping-cart',
+    icon: 'emcee',
     route: '/post',
+  },
+  {
+    id: '8',
+    breadcrumbParentId: '1',
+    name: '化妆师',
+    zh: {
+      name: '化妆师'
+    },
+    'pt-br': {
+      name: '化妆师'
+    },
+    icon: 'dresser',
+    route: '/wedding-plan',
+  },
+  {
+    id: '9',
+    breadcrumbParentId: '1',
+    name: '婚纱摄影',
+    zh: {
+      name: '婚纱摄影'
+    },
+    'pt-br': {
+      name: '婚纱摄影'
+    },
+    icon: 'video',
+    route: '/wedding-video',
+  },
+  {
+    id: '10',
+    breadcrumbParentId: '1',
+    name: '婚纱摄像',
+    zh: {
+      name: '婚纱摄像'
+    },
+    'pt-br': {
+      name: '婚纱摄像'
+    },
+    icon: 'camera-o',
+    route: '/wedding-photo',
+  },
+  {
+    id: '11',
+    breadcrumbParentId: '1',
+    name: '婚纱照',
+    zh: {
+      name: '婚纱照'
+    },
+    'pt-br': {
+      name: '婚纱照'
+    },
+    icon: 'wedding-album',
+    route: '/wedding-album',
+  },
+  {
+    id: '12',
+    breadcrumbParentId: '1',
+    name: '婚纱礼服',
+    zh: {
+      name: '婚纱礼服'
+    },
+    'pt-br': {
+      name: '婚纱礼服'
+    },
+    icon: 'user',
+    route: '/wedding-dress',
   },
   {
     id: '21',
@@ -56,33 +121,33 @@ const database = [
   {
     id: '3',
     breadcrumbParentId: '1',
-    name: 'Request',
+    name: '婚车',
     zh: {
       name: 'Request'
     },
     'pt-br': {
       name: 'Requisição'
     },
-    icon: 'api',
+    icon: 'car',
     route: '/request',
   },
   {
     id: '4',
     breadcrumbParentId: '1',
-    name: 'UI Element',
+    name: '婚品商城',
     zh: {
       name: 'UI组件'
     },
     'pt-br': {
       name: 'Elementos UI'
     },
-    icon: 'camera-o',
+    icon: 'wedding-gift',
   },
   {
     id: '45',
     breadcrumbParentId: '4',
     menuParentId: '4',
-    name: 'Editor',
+    name: '酒',
     zh: {
       name: 'Editor'
     },

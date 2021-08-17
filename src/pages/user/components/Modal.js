@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
-import { Trans } from "@lingui/macro"
 import city from 'utils/city'
 import { t } from "@lingui/macro"
+// import Rater from "../../../utils/Rater.js"
+import { Rate } from 'antd';
 
 const FormItem = Form.Item
 
@@ -28,7 +29,16 @@ class UserModal extends PureComponent {
           ...values,
           key: item.key,
         }
+        
+        if(!data.level) {
+          data.level = 4
+        }
+        if(!data.discount) {
+          data.discount = 90
+        }
+
         data.address = data.address.join(' ')
+        // 提交对话框的数据
         onOk(data)
       })
       .catch(errorInfo => {
@@ -43,37 +53,23 @@ class UserModal extends PureComponent {
       <Modal {...modalProps} onOk={this.handleOk}>
         <Form ref={this.formRef} name="control-ref" initialValues={{ ...item, address: item.address && item.address.split(' ') }} layout="horizontal">
           <FormItem name='name' rules={[{ required: true }]}
-            label={t`Name`} hasFeedback {...formItemLayout}>
+            label={t`名称`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='nickName' rules={[{ required: true }]}
-            label={t`NickName`} hasFeedback {...formItemLayout}>
-            <Input />
-          </FormItem>
-          <FormItem name='isMale' rules={[{ required: true }]}
-            label={t`Gender`} hasFeedback {...formItemLayout}>
-            <Radio.Group>
-              <Radio value>
-                <Trans>Male</Trans>
-              </Radio>
-              <Radio value={false}>
-                <Trans>Female</Trans>
-              </Radio>
-            </Radio.Group>
-          </FormItem>
-          <FormItem name='age' label={t`Age`} hasFeedback {...formItemLayout}>
-            <InputNumber min={18} max={100} />
+          <FormItem name='level' label={t`星级`} hasFeedback {...formItemLayout}>
+            <Rate defaultValue={4} />
           </FormItem>
           <FormItem name='phone' rules={[{ required: true, pattern: /^1[34578]\d{9}$/, message: t`The input is not valid phone!`, }]}
-            label={t`Phone`} hasFeedback {...formItemLayout}>
+            label={t`联系电话`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='email' rules={[{ required: true, pattern: /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/, message: t`The input is not valid E-mail!`, }]}
-            label={t`Email`} hasFeedback {...formItemLayout}>
-            <Input />
+          
+          <FormItem name='discount' label={t`优惠`} hasFeedback {...formItemLayout}>
+            <InputNumber min={50} max={100} style={{ width: 275 }} defaultValue="90" />
           </FormItem>
+
           <FormItem name='address' rules={[{ required: true, }]}
-            label={t`Address`} hasFeedback {...formItemLayout}>
+            label={t`地址`} hasFeedback {...formItemLayout}>
             <Cascader
               style={{ width: '100%' }}
               options={city}
