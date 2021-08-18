@@ -38,7 +38,7 @@ export default modelExtend(pageModel, {
   effects: {
     *query({ payload = {} }, { call, put }) {
       const data = yield call(queryUserList, payload)
-      console.log("======================user======================", data);
+      console.log("===query user list===", data);
       if (data) {
         yield put({
           type: 'querySuccess',
