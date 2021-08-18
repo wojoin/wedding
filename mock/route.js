@@ -28,6 +28,32 @@ const database = [
     route: '/user',
   },
   {
+    id: '26',
+    breadcrumbParentId: '1',
+    name: '婚礼酒店hotel',
+    zh: {
+      name: '婚礼酒店hotel'
+    },
+    'pt-br': {
+      name: 'Usuário'
+    },
+    icon: 'home',
+    route: '/hotel',
+  },
+  {
+    id: '261',
+    menuParentId: '-1',
+    breadcrumbParentId: '26',
+    name: 'Hotel Detail',
+    zh: {
+      name: '酒店详情'
+    },
+    'pt-br': {
+      name: 'Detalhes do usuário'
+    },
+    route: '/hotel/:id',
+  },
+  {
     id: '7',
     breadcrumbParentId: '1',
     name: '婚礼司仪',

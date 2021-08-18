@@ -4,7 +4,7 @@ import api from 'api'
 import { pageModel } from 'utils/model'
 
 const {
-  queryUserList,
+  queryHotelList,
   createUser,
   removeUser,
   updateUser,
@@ -12,7 +12,7 @@ const {
 } = api
 
 export default modelExtend(pageModel, {
-  namespace: 'user',
+  namespace: 'hotel',
 
   state: {
     currentItem: {},
@@ -24,9 +24,9 @@ export default modelExtend(pageModel, {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(location => {
-        if (pathToRegexp('/user').exec(location.pathname)) {
+        if (pathToRegexp('/hotel').exec(location.pathname)) {
           const payload = location.query || { page: 1, pageSize: 10 }
-          console.log("===1 user path access===")
+          console.log("===1 hotel path access===")
           dispatch({
             type: 'query',
             payload,
@@ -38,8 +38,8 @@ export default modelExtend(pageModel, {
 
   effects: {
     *query({ payload = {} }, { call, put }) {
-      const data = yield call(queryUserList, payload)
-      console.log("===2 user query list===", data);
+      const data = yield call(queryHotelList, payload)
+      console.log("===2 hotel query list===", data);
       if (data) {
         yield put({
           type: 'querySuccess',

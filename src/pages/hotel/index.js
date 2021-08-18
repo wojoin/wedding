@@ -10,8 +10,8 @@ import List from './components/List'
 import Filter from './components/Filter'
 import Modal from './components/Modal'
 
-@connect(({ user, loading }) => ({ user, loading }))
-class User extends PureComponent {
+@connect(({ hotel, loading }) => ({ hotel, loading }))
+class Hotel extends PureComponent {
   handleRefresh = newQuery => {
     const { location } = this.props
     const { query, pathname } = location
@@ -29,11 +29,11 @@ class User extends PureComponent {
   }
 
   handleDeleteItems = () => {
-    const { dispatch, user } = this.props
-    const { list, pagination, selectedRowKeys } = user
+    const { dispatch, hotel } = this.props
+    const { list, pagination, selectedRowKeys } = hotel
 
     dispatch({
-      type: 'user/multiDelete',
+      type: 'hotel/multiDelete',
       payload: {
         ids: selectedRowKeys,
       },
@@ -48,22 +48,22 @@ class User extends PureComponent {
   }
 
   get modalProps() {
-    const { dispatch, user, loading } = this.props
-    const { currentItem, modalVisible, modalType } = user
+    const { dispatch, hotel, loading } = this.props
+    const { currentItem, modalVisible, modalType } = hotel
 
     return {
       item: modalType === 'create' ? {} : currentItem,
       visible: modalVisible,
       destroyOnClose: true,
       maskClosable: false,
-      confirmLoading: loading.effects[`user/${modalType}`],
+      confirmLoading: loading.effects[`hotel/${modalType}`],
       title: `${
         modalType === 'create' ? t`增加酒店` : t`更新酒店信息`
       }`,
       centered: true,
       onOk: data => {
         dispatch({
-          type: `user/${modalType}`,
+          type: `hotel/${modalType}`,
           payload: data,
         }).then(() => {
           this.handleRefresh()
@@ -71,7 +71,7 @@ class User extends PureComponent {
       },
       onCancel() {
         dispatch({
-          type: 'user/hideModal',
+          type: 'hotel/hideModal',
         })
       },
     }
@@ -79,13 +79,13 @@ class User extends PureComponent {
 
   get listProps() {
 
-    console.log("===page user listProps this.props===", this.props)
-    const { dispatch, user, loading } = this.props
-    const { list, pagination, selectedRowKeys } = user
+    console.log("===page hotel listProps this.props===", this.props)
+    const { dispatch, hotel, loading } = this.props
+    const { list, pagination, selectedRowKeys } = hotel
 
     return {
       dataSource: list,
-      loading: loading.effects['user/query'],
+      loading: loading.effects['hotel/query'],
       pagination,
       onChange: page => {
         this.handleRefresh({
@@ -95,7 +95,7 @@ class User extends PureComponent {
       },
       onDeleteItem: id => {
         dispatch({
-          type: 'user/delete',
+          type: 'hotel/delete',
           payload: id,
         }).then(() => {
           this.handleRefresh({
@@ -108,7 +108,7 @@ class User extends PureComponent {
       },
       onEditItem(item) {
         dispatch({
-          type: 'user/showModal',
+          type: 'hotel/showModal',
           payload: {
             modalType: 'update',
             currentItem: item,
@@ -119,7 +119,7 @@ class User extends PureComponent {
         selectedRowKeys,
         onChange: keys => {
           dispatch({
-            type: 'user/updateState',
+            type: 'hotel/updateState',
             payload: {
               selectedRowKeys: keys,
             },
@@ -132,7 +132,7 @@ class User extends PureComponent {
   get filterProps() {
     const { location, dispatch } = this.props
     // TODO why dispatch
-    console.log("=====page user index filterProps(), why dispatch====", this.props)
+    console.log("=====page hotel index filterProps(), why dispatch====", this.props)
     const { query } = location
 
     return {
@@ -146,7 +146,7 @@ class User extends PureComponent {
       },
       onAdd() {
         dispatch({
-          type: 'user/showModal',
+          type: 'hotel/showModal',
           payload: {
             modalType: 'create',
           },
@@ -156,9 +156,9 @@ class User extends PureComponent {
   }
 
   render() {
-    const { user } = this.props
-    const { selectedRowKeys } = user
-    console.log("===page user render() this.props===", this.props)
+    const { hotel } = this.props
+    const { selectedRowKeys } = hotel
+    console.log("===page hotel render() this.props===", this.props)
 
     return (
       <Page inner>
@@ -186,11 +186,11 @@ class User extends PureComponent {
   }
 }
 
-User.propTypes = {
-  user: PropTypes.object,
+Hotel.propTypes = {
+  hotel: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
   loading: PropTypes.object,
 }
 
-export default User
+export default Hotel

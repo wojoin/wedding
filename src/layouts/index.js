@@ -62,6 +62,8 @@ class Layout extends Component {
 
   render() {
     const { children } = this.props
+    console.log("===App Start== layout/index")
+    // console.log("===layout/index Layout this.props===", this.props)
 
     let language = getLocale()
     // If the language pack is not loaded or is loading, use the default language

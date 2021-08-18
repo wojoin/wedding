@@ -2,17 +2,21 @@ export default {
   queryRouteList: '/routes',
 
   queryUserInfo: '/user',
-  // queryUserInfo: '/wedding-hotel',
   logoutUser: '/user/logout',
   loginUser: 'POST /user/login',
 
   queryUser: '/user/:id',
   queryUserList: '/users',
-  // queryUserList: '/wedding-hotels',
   updateUser: 'Patch /user/:id',
   createUser: 'POST /user',
   removeUser: 'DELETE /user/:id',
   removeUserList: 'POST /users/delete',
+
+  // hotel
+  queryHotelInfo: '/hotel',
+  queryHotelList: '/hotels',
+  queryHotel: '/hotel/:id',
+
 
   queryPostList: '/posts',
 

@@ -17,7 +17,7 @@ const formItemLayout = {
   },
 }
 
-class UserModal extends PureComponent {
+class HotelModal extends PureComponent {
   formRef = React.createRef()
 
   handleOk = () => {
@@ -83,10 +83,10 @@ class UserModal extends PureComponent {
   }
 }
 
-UserModal.propTypes = {
+HotelModal.propTypes = {
   type: PropTypes.string,
   item: PropTypes.object,
   onOk: PropTypes.func,
 }
 
-export default UserModal
+export default HotelModal
