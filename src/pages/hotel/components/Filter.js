@@ -69,7 +69,7 @@ class Filter extends Component {
   render() {
     // 创建酒店
     // onAdd, filter, onFilterChange这个三个属性位于index.js的filterProps的get的方法中
-    console.log("==========1 Hotel Filter this.props==========", this.props)
+    // console.log("==========1 Hotel Filter this.props==========", this.props)
     const { onAdd, filter } = this.props
     const { name, address } = filter
 

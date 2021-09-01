@@ -1,12 +1,19 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
+import { Form, Input, InputNumber, DatePicker, Radio,Select, Modal, Cascader } from 'antd'
 import city from 'utils/city'
 import { t } from "@lingui/macro"
-// import Rater from "../../../utils/Rater.js"
-import { Rate } from 'antd';
+import moment from 'moment'
 
-const FormItem = Form.Item
+const { Option } = Select;
+
+// const Form.Item = Form.Item
+
+const weeedingtheme1 = "裸粉色"
+const weeedingtheme2 = "滨河蓝"
+const weeedingtheme3 = "浅艾兰"
+const weeedingtheme4 = "中国红"
+const weeedingtheme5 = "欧若拉红"
 
 const formItemLayout = {
   labelCol: {
@@ -17,10 +24,14 @@ const formItemLayout = {
   },
 }
 
+// const dateFormat = 'YYYY/MM/DD';
+
 class HotelModal extends PureComponent {
   formRef = React.createRef()
 
   handleOk = () => {
+
+    console.log("=====modal data before====")
     const { item = {}, onOk } = this.props
 
     this.formRef.current.validateFields()
@@ -29,15 +40,22 @@ class HotelModal extends PureComponent {
           ...values,
           key: item.key,
         }
+
+        console.log("=====modal data====", data)
         
-        if(!data.level) {
-          data.level = 4
+        if(!data.weddingtables) {
+          data.weddingtables = 10
         }
-        if(!data.discount) {
-          data.discount = 90
+        if(!data.weddingfloor) {
+          data.weddingfloor = 8
         }
 
-        data.address = data.address.join(' ')
+        // data.weddingdate = moment(data.weddingdate, 'DD/MM/YYYY')
+        // data.weddingtime = moment(data.weddingtime, 'DD/MM/YYYY HH:00:00')
+
+        // data.weddingdate
+        // data.weddingtime
+
         // 提交对话框的数据
         onOk(data)
       })
@@ -46,37 +64,57 @@ class HotelModal extends PureComponent {
       })
   }
 
+  onThemeChange = (value) => {
+    // console.log("==========wedding change========", value)
+      // switch (value) {
+      //   case 'male':
+      //     this.formRef.setFieldsValue({ note: 'Hi, man!' });
+      //     return;
+      //   case 'female':
+      //     this.formRef.setFieldsValue({ note: 'Hi, lady!' });
+      //     return;
+      //   case 'other':
+      //     this.formRef.setFieldsValue({ note: 'Hi there!' });
+      // }
+
+  }
+  
+
   render() {
-    console.log("==========3 User Modal this.props==========", this.props)
+    // console.log("==========3 User Modal this.props==========", this.props)
     const { item = {}, onOk, form, ...modalProps } = this.props
 
     return (
       <Modal {...modalProps} onOk={this.handleOk}>
-        <Form ref={this.formRef} name="control-ref" initialValues={{ ...item, address: item.address && item.address.split(' ') }} layout="horizontal">
-          <FormItem name='name' rules={[{ required: true }]}
-            label={t`名称`} hasFeedback {...formItemLayout}>
+        <Form ref={this.formRef} name="control-ref" layout="horizontal" initialValues={{ ...item}}>
+          <Form.Item name='name' rules={[{ required: true }]}
+            label={t`酒店名`} hasFeedback {...formItemLayout}>
             <Input />
-          </FormItem>
-          <FormItem name='level' label={t`星级`} hasFeedback {...formItemLayout}>
-            <Rate defaultValue={4} />
-          </FormItem>
-          <FormItem name='phone' rules={[{ required: true, pattern: /^1[34578]\d{9}$/, message: t`The input is not valid phone!`, }]}
-            label={t`联系电话`} hasFeedback {...formItemLayout}>
-            <Input />
-          </FormItem>
-          
-          <FormItem name='discount' label={t`优惠`} hasFeedback {...formItemLayout}>
-            <InputNumber min={50} max={100} style={{ width: 275 }} defaultValue="90" />
-          </FormItem>
+          </Form.Item>
+          <Form.Item name="weddingdate" label={t`婚期`} rules={[{ required: true, message: '请选择婚期', }]} hasFeedback {...formItemLayout}>
+            <DatePicker style={{ width: '100%' }}/>
+          </Form.Item>
+          <Form.Item name='weddingtables' label={t`桌数`} hasFeedback {...formItemLayout}>
+            <InputNumber min={1} max={100} style={{ width: 275 }} />
+          </Form.Item>
 
-          <FormItem name='address' rules={[{ required: true, }]}
-            label={t`地址`} hasFeedback {...formItemLayout}>
-            <Cascader
-              style={{ width: '100%' }}
-              options={city}
-              placeholder={t`Pick an address`}
-            />
-          </FormItem>
+          <Form.Item name='weddingtheme' label={t`色系`} rules={[{ required: true }]} hasFeedback {...formItemLayout}>
+            <Select placeholder="请选择色系" onChange={this.onThemeChange}>
+              <Option value={weeedingtheme1}>{weeedingtheme1}</Option>
+              <Option value={weeedingtheme2}>{weeedingtheme2}</Option>
+              <Option value={weeedingtheme3}>{weeedingtheme3}</Option>
+              <Option value={weeedingtheme4}>{weeedingtheme4}</Option>
+              <Option value={weeedingtheme5}>{weeedingtheme5}</Option>
+            </Select>
+          </Form.Item>
+          
+          <Form.Item name='weddingfloor' label={t`酒店层高`} hasFeedback {...formItemLayout}>
+            <InputNumber min={1} max={80} style={{ width: 275 }} />
+          </Form.Item>
+
+          <Form.Item name='weddingtime' label={t`进场时间`} hasFeedback {...formItemLayout}>
+            <DatePicker showTime style={{ width: '100%' }}/>
+          </Form.Item>
         </Form>
       </Modal>
     )

@@ -9,6 +9,7 @@ import { stringify } from 'qs'
 import List from './components/List'
 import Filter from './components/Filter'
 import Modal from './components/Modal'
+import moment from 'moment'
 
 @connect(({ hotel, loading }) => ({ hotel, loading }))
 class Hotel extends PureComponent {
@@ -79,7 +80,7 @@ class Hotel extends PureComponent {
 
   get listProps() {
 
-    console.log("===page hotel listProps this.props===", this.props)
+    // console.log("===page hotel listProps this.props===", this.props)
     const { dispatch, hotel, loading } = this.props
     const { list, pagination, selectedRowKeys } = hotel
 
@@ -107,6 +108,15 @@ class Hotel extends PureComponent {
         })
       },
       onEditItem(item) {
+        console.log("===edit item 1===", item)
+        // const weddingdateConverted = moment(item.weddingdate, 'DD/MM/YYYY')
+        // const weddingtimeConverted = moment(item.weddingtime, 'DD/MM/YYYY HH:00:00')
+        // item.weddingdate = weddingdateConverted
+        // item.weddingtime = weddingtimeConverted
+        // console.log("===edit item 2===", item)
+        // item.weddingdate = moment(item.weddingdate, 'DD/MM/YYYY')
+        // item.weddingtime = moment(item.weddingtime, 'DD/MM/YYYY HH:00:00')
+        // console.log("===edit item 2===", item)
         dispatch({
           type: 'hotel/showModal',
           payload: {
@@ -132,7 +142,7 @@ class Hotel extends PureComponent {
   get filterProps() {
     const { location, dispatch } = this.props
     // TODO why dispatch
-    console.log("=====page hotel index filterProps(), why dispatch====", this.props)
+    // console.log("=====page hotel index filterProps(), why dispatch====", this.props)
     const { query } = location
 
     return {
@@ -158,7 +168,7 @@ class Hotel extends PureComponent {
   render() {
     const { hotel } = this.props
     const { selectedRowKeys } = hotel
-    console.log("===page hotel render() this.props===", this.props)
+    // console.log("===page hotel render() this.props===", this.props)
 
     return (
       <Page inner>

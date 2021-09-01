@@ -1,19 +1,32 @@
 import { Mock, Constant, randomAvatar } from './_utils'
 import qs from 'qs'
-import { Rate } from 'antd'
+// import { Random } from 'antd'
 
 const { ApiPrefix } = Constant
 
 let hotelListData = Mock.mock({
-  'data|80-100': [
+  'data|8-10': [
     {
       id: '@id',
-      name: '@name',
-      'level|1-5': 3,
-      phone: /^1[34578]\d{9}$/,
-      'discount|50-100': 90,
-      address: '@county(true)',
-      createTime: '@datetime',
+      "name|1":[
+        "香格里拉",
+        "绿地洲际酒店",
+        "金陵饭店",
+        "古南都饭店",
+        "南京世茂滨江希尔顿酒店",
+        "玄武饭店"
+      ],
+      'weddingdate': '@date',
+      'weddingtables|1-100': 10,
+      "weddingtheme|1": [
+        "裸粉色",
+        "滨河蓝",
+        "浅艾兰",
+        "中国红",
+        "欧若拉红",
+      ],
+      'weddingfloor|1-80': 8,
+      "weddingtime": Mock.Random.now('hour'),
       avatar() {
         return randomAvatar()
       },
@@ -31,7 +44,7 @@ const EnumRoleType = {
 
 const userPermission = {
   DEFAULT: {
-    visit: ['1', '2', '21', '7', '5', '51', '52', '53'],
+    visit: ['2', '21', '7', '5', '51', '52', '53'],
     role: EnumRoleType.DEFAULT,
   },
   ADMIN: {
@@ -197,25 +210,25 @@ module.exports = {
   //   res.status(204).end()
   // },
 
-  // [`POST ${ApiPrefix}/user`](req, res) {
-  //   const newData = req.body
-  //   console.log("===============POST user data============", newData)
-  //   newData.createTime = Mock.mock('@now')
-  //   newData.avatar =
-  //     newData.avatar ||
-  //     Mock.Random.image(
-  //       '100x100',
-  //       Mock.Random.color(),
-  //       '#757575',
-  //       'png',
-  //       newData.name
-  //     )
-  //   newData.id = Mock.mock('@id')
+  [`POST ${ApiPrefix}/hotel`](req, res) {
+    const newData = req.body
+    console.log("===============POST hotel data============", newData)
+    newData.createTime = Mock.mock('@now')
+    newData.avatar =
+      newData.avatar ||
+      Mock.Random.image(
+        '100x100',
+        Mock.Random.color(),
+        '#757575',
+        'png',
+        newData.name
+      )
+    newData.id = Mock.mock('@id')
 
-  //   database.unshift(newData)
+    database.unshift(newData)
 
-  //   res.status(200).end()
-  // },
+    res.status(200).end()
+  },
 
   // [`GET ${ApiPrefix}/user/:id`](req, res) {
   //   console.log("==============GET user by id============")
@@ -240,40 +253,40 @@ module.exports = {
   //   }
   // },
 
-  // [`PATCH ${ApiPrefix}/user/:id`](req, res) {
-  //   console.log("==============UPDATE user by id============")
-  //   const { id } = req.params
-  //   const editItem = req.body
-  //   let isExist = false
+  [`PATCH ${ApiPrefix}/hotel/:id`](req, res) {
+    console.log("==============UPDATE hotel by id============")
+    const { id } = req.params
+    const editItem = req.body
+    let isExist = false
 
-  //   console.log("=============更新酒店信息===========", editItem)
+    console.log("=============更新酒店信息===========", editItem)
 
-  //   database = database.map(item => {
-  //     if (item.id === id) {
-  //       isExist = true
+    database = database.map(item => {
+      if (item.id === id) {
+        isExist = true
 
-  //       // 如果名字改变的话, 更新图片
-  //       if(item.name != editItem.name) {
-  //         editItem.avatar =
-  //         editItem.avatar ||
-  //         Mock.Random.image(
-  //           '100x100',
-  //           Mock.Random.color(),
-  //           '#757575',
-  //           'png',
-  //           editItem.name
-  //         )
-  //       }
+        // 如果名字改变的话, 更新图片
+        if(item.name != editItem.name) {
+          editItem.avatar =
+          editItem.avatar ||
+          Mock.Random.image(
+            '100x100',
+            Mock.Random.color(),
+            '#757575',
+            'png',
+            editItem.name
+          )
+        }
         
-  //       return Object.assign({}, item, editItem)
-  //     }
-  //     return item
-  //   })
+        return Object.assign({}, item, editItem)
+      }
+      return item
+    })
 
-  //   if (isExist) {
-  //     res.status(201).end()
-  //   } else {
-  //     res.status(200).json(NOTFOUND)
-  //   }
-  // },
+    if (isExist) {
+      res.status(201).end()
+    } else {
+      res.status(200).json(NOTFOUND)
+    }
+  },
 }

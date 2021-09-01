@@ -7,7 +7,7 @@ export default {
 
   queryUser: '/user/:id',
   queryUserList: '/users',
-  updateUser: 'Patch /user/:id',
+  updateUser: 'PATCH /user/:id',
   createUser: 'POST /user',
   removeUser: 'DELETE /user/:id',
   removeUserList: 'POST /users/delete',
@@ -16,6 +16,8 @@ export default {
   queryHotelInfo: '/hotel',
   queryHotelList: '/hotels',
   queryHotel: '/hotel/:id',
+  createHotel: 'POST /hotel',
+  updateHotel: 'PATCH /hotel/:id',
 
 
   queryPostList: '/posts',
