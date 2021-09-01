@@ -26,5 +26,5 @@ export default {
   queryPostList4: '/wedding-album',
   queryPostList5: '/wedding-car',
 
-  queryDashboard: '/dashboard',
+  // queryDashboard: '/dashboard',
 }

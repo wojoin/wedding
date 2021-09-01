@@ -15,7 +15,7 @@ const { queryRouteList, logoutUser, queryUserInfo } = api
 const goDashboard = () => {
   if (pathToRegexp(['/', '/login']).exec(window.location.pathname)) {
     history.push({
-      pathname: '/dashboard',
+      pathname: '/hotel',
     })
   }
 }
@@ -29,7 +29,7 @@ export default {
         icon: 'laptop',
         name: 'Dashboard',
         zhName: '仪表盘',
-        router: '/dashboard',
+        router: '/hotel',
       },
     ],
     locationPathname: '',
