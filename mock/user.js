@@ -8,15 +8,27 @@ let usersListData = Mock.mock({
   'data|80-100': [
     {
       id: '@id',
-      name: '@name',
-      'level|1-5': 3,
-      // "level|1-5": "★",
-      phone: /^1[34578]\d{9}$/,
-      "discount|50-100": 90,
-      // 'age|11-99': 1,
-      address: '@county(true)',
-      // isMale: '@boolean',
-      // email: '@email',
+      "hengjia|1": [
+        "0.2",
+        "0.5",
+        "0.8",
+        "1.0",
+        "2.0"
+      ],
+      "longmenjia|50-70": 60,
+      "ttai|1":[
+        "S型",
+        "直型",
+        "圆型"
+      ],
+      ttaitool: 1,
+      tieyi: 1,
+      "buman|20-80": 20,
+      "chairknot|10-200": 60,
+      "carpet|1-10": 2,
+      "palight|1-80": 20,
+      "led|1-200": 60,
+      "audio|1-20": 5,
       createTime: '@datetime',
       avatar() {
         return randomAvatar()

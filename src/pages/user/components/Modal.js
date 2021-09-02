@@ -54,29 +54,51 @@ class UserModal extends PureComponent {
       <Modal {...modalProps} onOk={this.handleOk}>
         <Form ref={this.formRef} name="control-ref" initialValues={{ ...item, address: item.address && item.address.split(' ') }} layout="horizontal">
           <FormItem name='name' rules={[{ required: true }]}
-            label={t`名称`} hasFeedback {...formItemLayout}>
+            label={t`桁架`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='level' label={t`星级`} hasFeedback {...formItemLayout}>
-            <Rate defaultValue={4} />
+          <FormItem name='level' label={t`龙门架`} hasFeedback {...formItemLayout}>
+            <InputNumber min={50} max={70} style={{ width: 275 }} defaultValue="60" />
           </FormItem>
           <FormItem name='phone' rules={[{ required: true, pattern: /^1[34578]\d{9}$/, message: t`The input is not valid phone!`, }]}
-            label={t`联系电话`} hasFeedback {...formItemLayout}>
+            label={t`T台`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          
-          <FormItem name='discount' label={t`优惠`} hasFeedback {...formItemLayout}>
-            <InputNumber min={50} max={100} style={{ width: 275 }} defaultValue="90" />
+          <FormItem name='discount' label={t`T台道具`} hasFeedback {...formItemLayout}>
+            <InputNumber min={50} max={100} style={{ width: 275 }} defaultValue="80" />
           </FormItem>
 
-          <FormItem name='address' rules={[{ required: true, }]}
+          <FormItem name='tieyi' label={t`铁艺`} hasFeedback {...formItemLayout}>
+            <InputNumber min={1} max={10} style={{ width: 275 }} defaultValue="1" />
+          </FormItem>
+          <FormItem name='buman' label={t`布幔`} hasFeedback {...formItemLayout}>
+            <InputNumber min={20} max={80} style={{ width: 275 }} defaultValue="60" />
+          </FormItem>
+          <FormItem name='chairknot' label={t`椅背结`} hasFeedback {...formItemLayout}>
+            <InputNumber min={10} max={200} style={{ width: 275 }} defaultValue="60" />
+          </FormItem>
+          <FormItem name='carpet' label={t`地毯`} hasFeedback {...formItemLayout}>
+            <InputNumber min={1} max={10} style={{ width: 275 }} defaultValue="2" />
+          </FormItem>
+
+          <FormItem name='palight' label={t`PA灯`} hasFeedback {...formItemLayout}>
+            <InputNumber min={1} max={80} style={{ width: 275 }} defaultValue="20" />
+          </FormItem>
+          <FormItem name='led' label={t`LED灯`} hasFeedback {...formItemLayout}>
+            <InputNumber min={1} max={200} style={{ width: 275 }} defaultValue="60" />
+          </FormItem>
+          <FormItem name='audio' label={t`音响`} hasFeedback {...formItemLayout}>
+            <InputNumber min={1} max={20} style={{ width: 275 }} defaultValue="5" />
+          </FormItem>
+
+          {/* <FormItem name='address' rules={[{ required: true, }]}
             label={t`地址`} hasFeedback {...formItemLayout}>
             <Cascader
               style={{ width: '100%' }}
               options={city}
               placeholder={t`Pick an address`}
             />
-          </FormItem>
+          </FormItem> */}
         </Form>
       </Modal>
     )

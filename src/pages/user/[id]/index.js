@@ -11,6 +11,8 @@ class UserDetail extends PureComponent {
     const { data } = userDetail
     const content = []
     for (let key in data) {
+      if(key == "id" || key == "statusCode" || key == "avatar")
+        continue
       if ({}.hasOwnProperty.call(data, key)) {
         content.push(
           <div key={key} className={styles.item}>

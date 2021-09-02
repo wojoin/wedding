@@ -58,7 +58,7 @@ class User extends PureComponent {
       maskClosable: false,
       confirmLoading: loading.effects[`user/${modalType}`],
       title: `${
-        modalType === 'create' ? t`增加酒店` : t`更新酒店信息`
+        modalType === 'create' ? t`增加订单` : t`更新订单信息`
       }`,
       centered: true,
       onOk: data => {
