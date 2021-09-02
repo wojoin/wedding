@@ -1,22 +1,24 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Table, Modal, Avatar } from 'antd'
+import { Table, Modal, Avatar, Space } from 'antd'
 import { DropOption } from 'components'
 import { t } from "@lingui/macro"
 import { Trans } from "@lingui/macro"
 import { Link } from 'umi'
 import styles from './List.less'
-import moment from 'moment';
+
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
 
 const { confirm } = Modal
 
 class List extends PureComponent {
   handleMenuClick = (record, e) => {
+    console.log("==========Hotel list this.props=============", this.props, record, e)
     const { onDeleteItem, onEditItem } = this.props
 
     if (e.key === '1') {
-      console.log("==========edit=============", record)
-      console.log("==========this.props=============", this.props)
       onEditItem(record)
     } else if (e.key === '2') {
       confirm({
@@ -28,10 +30,20 @@ class List extends PureComponent {
     }
   }
 
+  getWeddingDate = (date) => {
+    const dateAndTime = date.split('T');
+    return dateAndTime[0];
+  };
+
+  getWeddingTime = (date) => {
+    const weddingTime = moment(date).format('YYYY-MM-DD HH:mm:ss').toString()
+    return weddingTime;
+  };
+
   render() {
     const { onDeleteItem, onEditItem, datasource, ...tableProps } = this.props
 
-    // console.log("==========2 Hotel List this.props===============", this.props)
+    console.log("==========2 Hotel List datasource===============", datasource)
 
     const columns = [
       {
@@ -52,11 +64,18 @@ class List extends PureComponent {
         title: <Trans><strong>婚期</strong></Trans>,
         dataIndex: 'weddingdate',
         key: 'weddingdate',
-        // render: function(text, record, index) {
-        //   return moment(record.weddingdate, 'YYYY-MM-DD')
-        // }
-        // width: '10%',
-        // render: (text, record) => <Rate disabled value={record.level} />,
+        render: (date) => {
+          return (
+            this.getWeddingDate(date)
+          )}
+
+        // render: (text, record) => {
+        //   return (
+        //     <Space size="middle">
+        //       {/* {moment(record.weddingdate, 'YYYY-MM-DD').toDate()} */}
+        //       {text}
+        //     </Space>
+        // )},
       },
       {
         title: <Trans><strong>桌数</strong></Trans>,
@@ -81,6 +100,10 @@ class List extends PureComponent {
         dataIndex: 'weddingtime',
         key: 'weddingtime',
         // width: '12%',
+        render: (date) => {
+          return (
+            this.getWeddingTime(date)
+        )},
       },
       {
         title: <Trans><strong>操作</strong></Trans>,

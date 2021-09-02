@@ -55,7 +55,7 @@ const database = [
   },
   {
     id: '7',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: '婚礼司仪',
     zh: {
       name: '婚礼司仪'
@@ -68,7 +68,7 @@ const database = [
   },
   {
     id: '8',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: '化妆师',
     zh: {
       name: '化妆师'
@@ -81,7 +81,7 @@ const database = [
   },
   {
     id: '9',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: '婚纱摄影',
     zh: {
       name: '婚纱摄影'
@@ -94,7 +94,7 @@ const database = [
   },
   {
     id: '10',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: '婚纱摄像',
     zh: {
       name: '婚纱摄像'
@@ -107,7 +107,7 @@ const database = [
   },
   {
     id: '11',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: '婚纱照',
     zh: {
       name: '婚纱照'
@@ -120,7 +120,7 @@ const database = [
   },
   {
     id: '12',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: '婚纱礼服',
     zh: {
       name: '婚纱礼服'
@@ -146,7 +146,7 @@ const database = [
   },
   {
     id: '3',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: '婚车',
     zh: {
       name: 'Request'
@@ -159,7 +159,7 @@ const database = [
   },
   {
     id: '4',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: '婚品商城',
     zh: {
       name: 'UI组件'
@@ -185,7 +185,7 @@ const database = [
   },
   {
     id: '5',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '2',
     name: 'Charts',
     zh: {
       name: 'Charts'

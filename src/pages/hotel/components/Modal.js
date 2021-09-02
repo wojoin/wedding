@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { Form, Input, InputNumber, DatePicker, Radio,Select, Modal, Cascader } from 'antd'
 import city from 'utils/city'
 import { t } from "@lingui/macro"
-import moment from 'moment'
+import 'moment/locale/zh-cn';
+import locale from 'antd/es/date-picker/locale/zh_CN';
 
 const { Option } = Select;
 
@@ -24,7 +25,7 @@ const formItemLayout = {
   },
 }
 
-// const dateFormat = 'YYYY/MM/DD';
+// const dateFormat = 'YYYY-MM-DD';
 
 class HotelModal extends PureComponent {
   formRef = React.createRef()
@@ -50,8 +51,8 @@ class HotelModal extends PureComponent {
           data.weddingfloor = 8
         }
 
-        // data.weddingdate = moment(data.weddingdate, 'DD/MM/YYYY')
-        // data.weddingtime = moment(data.weddingtime, 'DD/MM/YYYY HH:00:00')
+        // data.weddingdate = moment(data.weddingdate, 'DD-MM-YYYY')
+        // data.weddingtime = moment(data.weddingtime, 'DD-MM-YYYY HH:00:00')
 
         // data.weddingdate
         // data.weddingtime
@@ -92,7 +93,7 @@ class HotelModal extends PureComponent {
             <Input />
           </Form.Item>
           <Form.Item name="weddingdate" label={t`婚期`} rules={[{ required: true, message: '请选择婚期', }]} hasFeedback {...formItemLayout}>
-            <DatePicker style={{ width: '100%' }}/>
+            <DatePicker locale={locale} format='YYYY-MM-DD' style={{ width: '100%' }}/>
           </Form.Item>
           <Form.Item name='weddingtables' label={t`桌数`} hasFeedback {...formItemLayout}>
             <InputNumber min={1} max={100} style={{ width: 275 }} />
@@ -113,7 +114,7 @@ class HotelModal extends PureComponent {
           </Form.Item>
 
           <Form.Item name='weddingtime' label={t`进场时间`} hasFeedback {...formItemLayout}>
-            <DatePicker showTime style={{ width: '100%' }}/>
+            <DatePicker locale={locale} showTime format='YYYY-MM-DD HH:mm:ss' style={{ width: '100%' }}/>
           </Form.Item>
         </Form>
       </Modal>

@@ -4,13 +4,21 @@ import { connect } from 'umi'
 import { Page } from 'components'
 import styles from './index.less'
 
-@connect(({ userDetail }) => ({ userDetail }))
-class UserDetail extends PureComponent {
+@connect(({ hotelDetail }) => ({ hotelDetail }))
+class HotelDetail extends PureComponent {
+
+  dataMap = {
+    name: ""
+  };
+
   render() {
-    const { userDetail } = this.props
-    const { data } = userDetail
+    console.log("===hotelDetail this.props===", this.props)
+    const { hotelDetail } = this.props
+    const { data } = hotelDetail
     const content = []
     for (let key in data) {
+      if(key == "id" || key == "statusCode" || key == "avatar")
+        continue
       if ({}.hasOwnProperty.call(data, key)) {
         content.push(
           <div key={key} className={styles.item}>
@@ -28,8 +36,8 @@ class UserDetail extends PureComponent {
   }
 }
 
-UserDetail.propTypes = {
-  userDetail: PropTypes.object,
+HotelDetail.propTypes = {
+  hotelDetail: PropTypes.object,
 }
 
-export default UserDetail
+export default HotelDetail

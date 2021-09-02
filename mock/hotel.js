@@ -204,11 +204,11 @@ module.exports = {
     })
   },
 
-  // [`POST ${ApiPrefix}/users/delete`](req, res) {
-  //   const { ids=[] } = req.body
-  //   database = database.filter(item => !ids.some(_ => _ === item.id))
-  //   res.status(204).end()
-  // },
+  [`POST ${ApiPrefix}/hotels/delete`](req, res) {
+    const { ids=[] } = req.body
+    database = database.filter(item => !ids.some(_ => _ === item.id))
+    res.status(204).end()
+  },
 
   [`POST ${ApiPrefix}/hotel`](req, res) {
     const newData = req.body
@@ -230,28 +230,28 @@ module.exports = {
     res.status(200).end()
   },
 
-  // [`GET ${ApiPrefix}/user/:id`](req, res) {
-  //   console.log("==============GET user by id============")
-  //   const { id } = req.params
-  //   const data = queryArray(database, id, 'id')
-  //   if (data) {
-  //     res.status(200).json(data)
-  //   } else {
-  //     res.status(200).json(NOTFOUND)
-  //   }
-  // },
+  [`GET ${ApiPrefix}/hotel/:id`](req, res) {
+    console.log("==============GET hotel by id============", req)
+    const { id } = req.params
+    const data = queryArray(database, id, 'id')
+    if (data) {
+      res.status(200).json(data)
+    } else {
+      res.status(200).json(NOTFOUND)
+    }
+  },
 
-  // [`DELETE ${ApiPrefix}/user/:id`](req, res) {
-  //   console.log("==============DELETE user by id============")
-  //   const { id } = req.params
-  //   const data = queryArray(database, id, 'id')
-  //   if (data) {
-  //     database = database.filter(item => item.id !== id)
-  //     res.status(204).end()
-  //   } else {
-  //     res.status(200).json(NOTFOUND)
-  //   }
-  // },
+  [`DELETE ${ApiPrefix}/hotel/:id`](req, res) {
+    console.log("==============DELETE hotel by id============", req.params)
+    const { id } = req.params
+    const data = queryArray(database, id, 'id')
+    if (data) {
+      database = database.filter(item => item.id !== id)
+      res.status(204).end()
+    } else {
+      res.status(200).json(NOTFOUND)
+    }
+  },
 
   [`PATCH ${ApiPrefix}/hotel/:id`](req, res) {
     console.log("==============UPDATE hotel by id============")

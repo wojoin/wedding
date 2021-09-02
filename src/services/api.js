@@ -18,6 +18,8 @@ export default {
   queryHotel: '/hotel/:id',
   createHotel: 'POST /hotel',
   updateHotel: 'PATCH /hotel/:id',
+  removeHotel: 'DELETE /hotel/:id',
+  removeHotelList: 'POST /hotels/delete',
 
 
   queryPostList: '/posts',

@@ -7,9 +7,9 @@ import moment from 'moment'
 const {
   queryHotelList,
   createHotel,
-  removeUser,
+  removeHotel,
   updateHotel,
-  removeUserList,
+  removeHotelList,
 } = api
 
 export default modelExtend(pageModel, {
@@ -81,9 +81,9 @@ export default modelExtend(pageModel, {
     },
 
     *delete({ payload }, { call, put, select }) {
-      const data = yield call(removeUser, { id: payload })
+      const data = yield call(removeHotel, { id: payload })
       console.log("===4 hotel delete===", data);
-      const { selectedRowKeys } = yield select(_ => _.user)
+      const { selectedRowKeys } = yield select(_ => _.hotel)
       if (data.success) {
         yield put({
           type: 'updateState',
@@ -97,7 +97,7 @@ export default modelExtend(pageModel, {
     },
 
     *multiDelete({ payload }, { call, put }) {
-      const data = yield call(removeUserList, payload)
+      const data = yield call(removeHotelList, payload)
       console.log("===5 hotel multi delete===", data);
       if (data.success) {
         yield put({ type: 'updateState', payload: { selectedRowKeys: [] } })
@@ -113,8 +113,8 @@ export default modelExtend(pageModel, {
       // console.log("===hotel reducers, payload ===", payload)
       let payloadItem = {...payload["currentItem"]}
       // 时间的数据必须通过 moment() 函数转换成 DatePicker的标准格式
-      payloadItem["weddingdate"] = moment(payloadItem["weddingdate"])
-      payloadItem["weddingtime"] = moment(payloadItem["weddingtime"])
+      payloadItem["weddingdate"] = moment(payloadItem["weddingdate"], 'YYYY-MM-DD HH:mm:ss')
+      payloadItem["weddingtime"] = moment(payloadItem["weddingtime"], 'YYYY-MM-DD HH:mm:ss')
       // console.log("===hotel reducers, payload 2===", payloadItem)
       let payloadConverted = {
         modalType: payload.modalType,

@@ -80,7 +80,7 @@ class Hotel extends PureComponent {
 
   get listProps() {
 
-    // console.log("===page hotel listProps this.props===", this.props)
+    console.log("===page hotel listProps this.props===", this.props)
     const { dispatch, hotel, loading } = this.props
     const { list, pagination, selectedRowKeys } = hotel
 
@@ -109,13 +109,13 @@ class Hotel extends PureComponent {
       },
       onEditItem(item) {
         console.log("===edit item 1===", item)
-        // const weddingdateConverted = moment(item.weddingdate, 'DD/MM/YYYY')
-        // const weddingtimeConverted = moment(item.weddingtime, 'DD/MM/YYYY HH:00:00')
+        // const weddingdateConverted = moment(item.weddingdate, 'DD-MM-YYYY')
+        // const weddingtimeConverted = moment(item.weddingtime, 'DD-MM-YYYY HH:00:00')
         // item.weddingdate = weddingdateConverted
         // item.weddingtime = weddingtimeConverted
         // console.log("===edit item 2===", item)
-        // item.weddingdate = moment(item.weddingdate, 'DD/MM/YYYY')
-        // item.weddingtime = moment(item.weddingtime, 'DD/MM/YYYY HH:00:00')
+        // item.weddingdate = moment(item.weddingdate, 'DD-MM-YYYY')
+        // item.weddingtime = moment(item.weddingtime, 'DD-MM-YYYY HH:00:00')
         // console.log("===edit item 2===", item)
         dispatch({
           type: 'hotel/showModal',
