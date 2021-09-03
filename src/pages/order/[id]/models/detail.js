@@ -1,10 +1,10 @@
 const { pathToRegexp } = require("path-to-regexp")
 import api from 'api'
 
-const { queryUser } = api
+const { queryOrder } = api
 
 export default {
-  namespace: 'userDetail',
+  namespace: 'orderDetail',
 
   state: {
     data: {},
@@ -13,7 +13,7 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname }) => {
-        const match = pathToRegexp('/user/:id').exec(pathname)
+        const match = pathToRegexp('/order/:id').exec(pathname)
         if (match) {
           dispatch({ type: 'query', payload: { id: match[1] } })
         }
@@ -23,7 +23,7 @@ export default {
 
   effects: {
     *query({ payload }, { call, put }) {
-      const data = yield call(queryUser, payload)
+      const data = yield call(queryOrder, payload)
       const { success, message, status, ...other } = data
       if (success) {
         yield put({

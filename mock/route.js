@@ -51,20 +51,20 @@ const database = [
       name: 'Usuário'
     },
     icon: 'home',
-    route: '/user',
+    route: '/order',
   },
   {
     id: '31',
     menuParentId: '-1',
     breadcrumbParentId: '3',
-    name: 'User Detail',
+    name: 'Rrder Detail',
     zh: {
-      name: '用户详情'
+      name: '订单详情'
     },
     'pt-br': {
       name: 'Detalhes do usuário'
     },
-    route: '/user/:id',
+    route: '/order/:id',
   },
   {
     id: '8',

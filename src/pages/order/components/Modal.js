@@ -17,7 +17,7 @@ const formItemLayout = {
   },
 }
 
-class UserModal extends PureComponent {
+class OrderModal extends PureComponent {
   formRef = React.createRef()
 
   handleOk = () => {
@@ -30,15 +30,41 @@ class UserModal extends PureComponent {
           key: item.key,
         }
         
-        if(!data.level) {
-          data.level = 4
+        // console.log("===order data===", data)
+        
+        if(!data.longmenjia) {
+          data.longmenjia = 60
         }
-        if(!data.discount) {
-          data.discount = 90
+        if(!data.ttaitool) {
+          data.ttaitool = 80
+        }
+        
+        if(!data.tieyi) {
+          data.tieyi = 1
+        }
+        if(!data.buman) {
+          data.buman = 60
         }
 
-        data.address = data.address.join(' ')
+        if(!data.chairknot) {
+          data.chairknot = 60
+        }
+        if(!data.carpet) {
+          data.carpet = 2
+        }
+
+        if(!data.palight) {
+          data.palight = 20
+        }
+        if(!data.led) {
+          data.led = 60
+        }
+        if(!data.audio) {
+          data.audio = 5
+        }
+
         // 提交对话框的数据
+        console.log("===submit ok===")
         onOk(data)
       })
       .catch(errorInfo => {
@@ -47,24 +73,23 @@ class UserModal extends PureComponent {
   }
 
   render() {
-    console.log("==========3 User Modal this.props==========", this.props)
+    console.log("==========3 Order Modal this.props==========", this.props)
     const { item = {}, onOk, form, ...modalProps } = this.props
 
     return (
       <Modal {...modalProps} onOk={this.handleOk}>
-        <Form ref={this.formRef} name="control-ref" initialValues={{ ...item, address: item.address && item.address.split(' ') }} layout="horizontal">
-          <FormItem name='name' rules={[{ required: true }]}
+        <Form ref={this.formRef} name="control-ref" initialValues={{ ...item }} layout="horizontal">
+          <FormItem name='hengjia' rules={[{ required: true }]}
             label={t`桁架`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='level' label={t`龙门架`} hasFeedback {...formItemLayout}>
+          <FormItem name='longmenjia' label={t`龙门架`} hasFeedback {...formItemLayout}>
             <InputNumber min={50} max={70} style={{ width: 275 }} defaultValue="60" />
           </FormItem>
-          <FormItem name='phone' rules={[{ required: true, pattern: /^1[34578]\d{9}$/, message: t`The input is not valid phone!`, }]}
-            label={t`T台`} hasFeedback {...formItemLayout}>
+          <FormItem name='ttai' label={t`T台`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
-          <FormItem name='discount' label={t`T台道具`} hasFeedback {...formItemLayout}>
+          <FormItem name='ttaitool' label={t`T台道具`} hasFeedback {...formItemLayout}>
             <InputNumber min={50} max={100} style={{ width: 275 }} defaultValue="80" />
           </FormItem>
 
@@ -105,10 +130,10 @@ class UserModal extends PureComponent {
   }
 }
 
-UserModal.propTypes = {
+OrderModal.propTypes = {
   type: PropTypes.string,
   item: PropTypes.object,
   onOk: PropTypes.func,
 }
 
-export default UserModal
+export default OrderModal

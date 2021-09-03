@@ -6,7 +6,6 @@ import { t } from "@lingui/macro"
 import { Trans } from "@lingui/macro"
 import { Link } from 'umi'
 import styles from './List.less'
-import { Rate } from 'antd';
 
 const { confirm } = Modal
 
@@ -45,7 +44,7 @@ class List extends PureComponent {
         dataIndex: 'hengjia',
         key: 'hengjia',
         // width: '12%',
-        render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
+        render: (text, record) => <Link to={`order/${record.id}`}>{text}</Link>,
       },
       {
         title: <Trans><strong>龙门架(米)</strong></Trans>,

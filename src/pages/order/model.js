@@ -4,15 +4,15 @@ import api from 'api'
 import { pageModel } from 'utils/model'
 
 const {
-  queryUserList,
-  createUser,
+  queryOrderList,
+  createOrder,
   removeUser,
   updateUser,
   removeUserList,
 } = api
 
 export default modelExtend(pageModel, {
-  namespace: 'user',
+  namespace: 'order',
 
   state: {
     currentItem: {},
@@ -24,9 +24,9 @@ export default modelExtend(pageModel, {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(location => {
-        if (pathToRegexp('/user').exec(location.pathname)) {
+        if (pathToRegexp('/order').exec(location.pathname)) {
           const payload = location.query || { page: 1, pageSize: 10 }
-          console.log("===0 user path access===")
+          console.log("===0 order path access===")
           dispatch({
             type: 'query',
             payload,
@@ -38,8 +38,9 @@ export default modelExtend(pageModel, {
 
   effects: {
     *create({ payload }, { call, put }) {
-      const data = yield call(createUser, payload)
-      console.log("===1 user create===", data);
+      console.log("===1 order create before===", payload);
+      const data = yield call(createOrder, payload)
+      console.log("===1 order create===", data);
       if (data.success) {
         yield put({ type: 'hideModal' })
       } else {
@@ -47,8 +48,8 @@ export default modelExtend(pageModel, {
       }
     },
     *query({ payload = {} }, { call, put }) {
-      const data = yield call(queryUserList, payload)
-      console.log("===2 user query list===", data);
+      const data = yield call(queryOrderList, payload)
+      console.log("===2 order query list===", data);
       if (data) {
         yield put({
           type: 'querySuccess',

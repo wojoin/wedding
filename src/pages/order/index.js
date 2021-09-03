@@ -10,8 +10,8 @@ import List from './components/List'
 import Filter from './components/Filter'
 import Modal from './components/Modal'
 
-@connect(({ user, loading }) => ({ user, loading }))
-class User extends PureComponent {
+@connect(({ order, loading }) => ({ order, loading }))
+class Order extends PureComponent {
   handleRefresh = newQuery => {
     const { location } = this.props
     const { query, pathname } = location
@@ -29,11 +29,11 @@ class User extends PureComponent {
   }
 
   handleDeleteItems = () => {
-    const { dispatch, user } = this.props
-    const { list, pagination, selectedRowKeys } = user
+    const { dispatch, order } = this.props
+    const { list, pagination, selectedRowKeys } = order
 
     dispatch({
-      type: 'user/multiDelete',
+      type: 'order/multiDelete',
       payload: {
         ids: selectedRowKeys,
       },
@@ -47,23 +47,24 @@ class User extends PureComponent {
     })
   }
 
+  // modal对话框
   get modalProps() {
-    const { dispatch, user, loading } = this.props
-    const { currentItem, modalVisible, modalType } = user
+    const { dispatch, order, loading } = this.props
+    const { currentItem, modalVisible, modalType } = order
 
     return {
       item: modalType === 'create' ? {} : currentItem,
       visible: modalVisible,
       destroyOnClose: true,
       maskClosable: false,
-      confirmLoading: loading.effects[`user/${modalType}`],
+      confirmLoading: loading.effects[`order/${modalType}`],
       title: `${
         modalType === 'create' ? t`增加订单` : t`更新订单信息`
       }`,
       centered: true,
       onOk: data => {
         dispatch({
-          type: `user/${modalType}`,
+          type: `order/${modalType}`,
           payload: data,
         }).then(() => {
           this.handleRefresh()
@@ -71,21 +72,22 @@ class User extends PureComponent {
       },
       onCancel() {
         dispatch({
-          type: 'user/hideModal',
+          type: 'order/hideModal',
         })
       },
     }
   }
 
+  // List 用于展示table
   get listProps() {
 
-    console.log("===page user listProps this.props===", this.props)
-    const { dispatch, user, loading } = this.props
-    const { list, pagination, selectedRowKeys } = user
+    console.log("===page order listProps this.props===", this.props)
+    const { dispatch, order, loading } = this.props
+    const { list, pagination, selectedRowKeys } = order
 
     return {
       dataSource: list,
-      loading: loading.effects['user/query'],
+      loading: loading.effects['order/query'],
       pagination,
       onChange: page => {
         this.handleRefresh({
@@ -95,7 +97,7 @@ class User extends PureComponent {
       },
       onDeleteItem: id => {
         dispatch({
-          type: 'user/delete',
+          type: 'order/delete',
           payload: id,
         }).then(() => {
           this.handleRefresh({
@@ -108,7 +110,7 @@ class User extends PureComponent {
       },
       onEditItem(item) {
         dispatch({
-          type: 'user/showModal',
+          type: 'order/showModal',
           payload: {
             modalType: 'update',
             currentItem: item,
@@ -119,7 +121,7 @@ class User extends PureComponent {
         selectedRowKeys,
         onChange: keys => {
           dispatch({
-            type: 'user/updateState',
+            type: 'order/updateState',
             payload: {
               selectedRowKeys: keys,
             },
@@ -146,7 +148,7 @@ class User extends PureComponent {
       },
       onAdd() {
         dispatch({
-          type: 'user/showModal',
+          type: 'order/showModal',
           payload: {
             modalType: 'create',
           },
@@ -156,9 +158,9 @@ class User extends PureComponent {
   }
 
   render() {
-    const { user } = this.props
-    const { selectedRowKeys } = user
-    console.log("===page user render() this.props===", this.props)
+    const { order } = this.props
+    const { selectedRowKeys } = order
+    console.log("===page order render() this.props===", this.props)
 
     return (
       <Page inner>
@@ -186,11 +188,11 @@ class User extends PureComponent {
   }
 }
 
-User.propTypes = {
-  user: PropTypes.object,
+Order.propTypes = {
+  order: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
   loading: PropTypes.object,
 }
 
-export default User
+export default Order

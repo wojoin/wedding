@@ -5,12 +5,12 @@ export default {
   logoutUser: '/user/logout',
   loginUser: 'POST /user/login',
 
-  queryUser: '/user/:id',
-  queryUserList: '/users',
-  updateUser: 'PATCH /user/:id',
-  createUser: 'POST /user',
-  removeUser: 'DELETE /user/:id',
-  removeUserList: 'POST /users/delete',
+  queryOrder: '/order/:id',
+  queryOrderList: '/orders',
+  // updateUser: 'PATCH /user/:id',
+  createOrder: 'POST /order',
+  // removeUser: 'DELETE /user/:id',
+  // removeUserList: 'POST /users/delete',
 
   // hotel
   queryHotelInfo: '/hotel',
