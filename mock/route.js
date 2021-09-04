@@ -57,7 +57,7 @@ const database = [
     id: '31',
     menuParentId: '-1',
     breadcrumbParentId: '3',
-    name: 'Rrder Detail',
+    name: '订单详情',
     zh: {
       name: '订单详情'
     },
@@ -65,6 +65,20 @@ const database = [
       name: 'Detalhes do usuário'
     },
     route: '/order/:id',
+  },
+
+  {
+    id: '6',
+    breadcrumbParentId: '',
+    name: '档期',
+    zh: {
+      name: '档期'
+    },
+    'pt-br': {
+      name: 'Detalhes do usuário'
+    },
+    icon: 'schedule',
+    route: '/schedule',
   },
   {
     id: '8',

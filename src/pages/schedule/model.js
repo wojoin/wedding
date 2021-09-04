@@ -8,11 +8,11 @@ const {
   createOrder,
   removeOrder,
   updateOrder,
-  removeOrderList,
+  removeUserList,
 } = api
 
 export default modelExtend(pageModel, {
-  namespace: 'order',
+  namespace: 'schedule',
 
   state: {
     currentItem: {},
@@ -24,9 +24,8 @@ export default modelExtend(pageModel, {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(location => {
-        if (pathToRegexp('/order').exec(location.pathname)) {
+        if (pathToRegexp('/schedule').exec(location.pathname)) {
           const payload = location.query || { page: 1, pageSize: 10 }
-          console.log("===0 order path access===")
           dispatch({
             type: 'query',
             payload,
@@ -78,9 +77,8 @@ export default modelExtend(pageModel, {
     },
 
     *delete({ payload }, { call, put, select }) {
-      console.log("===4 order delete=== befor", payload);
       const data = yield call(removeOrder, { id: payload })
-      console.log("===4 order delete=== after", data);
+      console.log("===4 order delete===", data);
       const { selectedRowKeys } = yield select(_ => _.order)
       if (data.success) {
         yield put({
@@ -95,8 +93,8 @@ export default modelExtend(pageModel, {
     },
 
     *multiDelete({ payload }, { call, put }) {
-      const data = yield call(removeOrderList, payload)
-      console.log("===5 order multi delete===", data);
+      const data = yield call(removeUserList, payload)
+      console.log("===5 user multi delete===", data);
       if (data.success) {
         yield put({ type: 'updateState', payload: { selectedRowKeys: [] } })
       } else {

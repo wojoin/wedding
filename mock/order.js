@@ -135,30 +135,30 @@ module.exports = {
   },
 
 
-  // [`GET ${ApiPrefix}/user`](req, res) {
-  //   console.log("==============GET user============")
-  //   const cookie = req.headers.cookie || ''
-  //   const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
-  //   const response = {}
-  //   let user = {}
-  //   if (!cookies.token) {
-  //     res.status(200).send({ message: 'Not Login' })
-  //     return
-  //   }
-  //   const token = JSON.parse(cookies.token)
-  //   if (token) {
-  //     response.success = token.deadline > new Date().getTime()
-  //   }
-  //   if (response.success) {
-  //     const userItem = adminUsers.find(_ => _.id === token.id)
-  //     if (userItem) {
-  //       const { password, ...other } = userItem
-  //       user = other
-  //     }
-  //   }
-  //   response.user = user
-  //   res.json(response)
-  // },
+  [`GET ${ApiPrefix}/user`](req, res) {
+    console.log("==============GET user============")
+    const cookie = req.headers.cookie || ''
+    const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
+    const response = {}
+    let user = {}
+    if (!cookies.token) {
+      res.status(200).send({ message: 'Not Login' })
+      return
+    }
+    const token = JSON.parse(cookies.token)
+    if (token) {
+      response.success = token.deadline > new Date().getTime()
+    }
+    if (response.success) {
+      const userItem = adminUsers.find(_ => _.id === token.id)
+      if (userItem) {
+        const { password, ...other } = userItem
+        user = other
+      }
+    }
+    response.user = user
+    res.json(response)
+  },
 
   [`GET ${ApiPrefix}/orders`](req, res) {
     console.log("==============GET users============")
@@ -205,25 +205,16 @@ module.exports = {
     })
   },
 
-  // [`POST ${ApiPrefix}/users/delete`](req, res) {
-  //   const { ids=[] } = req.body
-  //   database = database.filter(item => !ids.some(_ => _ === item.id))
-  //   res.status(204).end()
-  // },
+  [`POST ${ApiPrefix}/orders/delete`](req, res) {
+    const { ids=[] } = req.body
+    database = database.filter(item => !ids.some(_ => _ === item.id))
+    res.status(204).end()
+  },
 
   [`POST ${ApiPrefix}/order`](req, res) {
     const newData = req.body
     console.log("===============POST order data============", newData)
     newData.createTime = Mock.mock('@now')
-    // newData.avatar =
-    //   newData.avatar ||
-    //   Mock.Random.image(
-    //     '100x100',
-    //     Mock.Random.color(),
-    //     '#757575',
-    //     'png',
-    //     newData.name
-    //   )
     newData.id = Mock.mock('@id')
 
     database.unshift(newData)
@@ -231,63 +222,63 @@ module.exports = {
     res.status(200).end()
   },
 
-  // [`GET ${ApiPrefix}/user/:id`](req, res) {
-  //   console.log("==============GET user by id============")
-  //   const { id } = req.params
-  //   const data = queryArray(database, id, 'id')
-  //   if (data) {
-  //     res.status(200).json(data)
-  //   } else {
-  //     res.status(200).json(NOTFOUND)
-  //   }
-  // },
+  [`GET ${ApiPrefix}/order/:id`](req, res) {
+    console.log("==============GET order by id============")
+    const { id } = req.params
+    const data = queryArray(database, id, 'id')
+    if (data) {
+      res.status(200).json(data)
+    } else {
+      res.status(200).json(NOTFOUND)
+    }
+  },
 
-  // [`DELETE ${ApiPrefix}/user/:id`](req, res) {
-  //   console.log("==============DELETE user by id============")
-  //   const { id } = req.params
-  //   const data = queryArray(database, id, 'id')
-  //   if (data) {
-  //     database = database.filter(item => item.id !== id)
-  //     res.status(204).end()
-  //   } else {
-  //     res.status(200).json(NOTFOUND)
-  //   }
-  // },
+  [`DELETE ${ApiPrefix}/order/:id`](req, res) {
+    console.log("==============DELETE order by id============")
+    const { id } = req.params
+    const data = queryArray(database, id, 'id')
+    if (data) {
+      database = database.filter(item => item.id !== id)
+      res.status(204).end()
+    } else {
+      res.status(200).json(NOTFOUND)
+    }
+  },
 
-  // [`PATCH ${ApiPrefix}/user/:id`](req, res) {
-  //   console.log("==============UPDATE user by id============")
-  //   const { id } = req.params
-  //   const editItem = req.body
-  //   let isExist = false
+  [`PATCH ${ApiPrefix}/order/:id`](req, res) {
+    console.log("==============UPDATE order by id============")
+    const { id } = req.params
+    const editItem = req.body
+    let isExist = false
 
-  //   console.log("=============更新酒店信息===========", editItem)
+    console.log("=============更新订单信息===========", editItem)
 
-  //   database = database.map(item => {
-  //     if (item.id === id) {
-  //       isExist = true
+    database = database.map(item => {
+      if (item.id === id) {
+        isExist = true
 
-  //       // 如果名字改变的话, 更新图片
-  //       if(item.name != editItem.name) {
-  //         editItem.avatar =
-  //         editItem.avatar ||
-  //         Mock.Random.image(
-  //           '100x100',
-  //           Mock.Random.color(),
-  //           '#757575',
-  //           'png',
-  //           editItem.name
-  //         )
-  //       }
+        // 如果名字改变的话, 更新图片
+        if(item.name != editItem.name) {
+          editItem.avatar =
+          editItem.avatar ||
+          Mock.Random.image(
+            '100x100',
+            Mock.Random.color(),
+            '#757575',
+            'png',
+            editItem.name
+          )
+        }
         
-  //       return Object.assign({}, item, editItem)
-  //     }
-  //     return item
-  //   })
+        return Object.assign({}, item, editItem)
+      }
+      return item
+    })
 
-  //   if (isExist) {
-  //     res.status(201).end()
-  //   } else {
-  //     res.status(200).json(NOTFOUND)
-  //   }
-  // },
+    if (isExist) {
+      res.status(201).end()
+    } else {
+      res.status(200).json(NOTFOUND)
+    }
+  },
 }

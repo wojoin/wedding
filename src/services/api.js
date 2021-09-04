@@ -7,10 +7,10 @@ export default {
 
   queryOrder: '/order/:id',
   queryOrderList: '/orders',
-  // updateUser: 'PATCH /user/:id',
   createOrder: 'POST /order',
-  // removeUser: 'DELETE /user/:id',
-  // removeUserList: 'POST /users/delete',
+  updateOrder: 'PATCH /order/:id',
+  removeOrder: 'DELETE /order/:id',
+  removeOrderList: 'POST /orders/delete',
 
   // hotel
   queryHotelInfo: '/hotel',
