@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Table, Modal, Avatar } from 'antd'
+import { Table, Modal, Avatar, Calendar  } from 'antd'
 import { DropOption } from 'components'
 import { t } from "@lingui/macro"
 import { Trans } from "@lingui/macro"
@@ -25,20 +25,17 @@ class List extends PureComponent {
     }
   }
 
+  onPanelChange = (value, mode) => {
+    console.log(value.format('YYYY-MM-DD'), mode);
+  }
+
   render() {
     const { onDeleteItem, onEditItem, datasource, ...tableProps } = this.props
 
     // console.log("==========User List datasource===============", this.props.dataSource)
-    console.log("==========2 User List this.props===============", this.props)
+    console.log("==========2 Schedule List this.props===============", this.props)
 
     const columns = [
-      // {
-      //   title: <Trans><strong>图像</strong></Trans>,
-      //   dataIndex: 'avatar',
-      //   key: 'avatar',
-      //   width: '5%',
-      //   render: text => <Avatar src={text} />,
-      // },
       {
         title: <Trans><strong>桁架(米)</strong></Trans>,
         dataIndex: 'hengjia',
@@ -127,7 +124,9 @@ class List extends PureComponent {
     ]
 
     return (
-      <Table
+      
+      <Calendar onPanelChange={this.onPanelChange} />
+      /* <Table
         columns={columns}
         dataSource={datasource}
         {...tableProps}
@@ -140,7 +139,8 @@ class List extends PureComponent {
         scroll={{ x: 1200 }}
         simple
         rowKey={record => record.id}
-      />
+      /> */
+     
     )
   }
 }

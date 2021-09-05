@@ -10,8 +10,8 @@ import List from './components/List'
 import Filter from './components/Filter'
 import Modal from './components/Modal'
 
-@connect(({ order, loading }) => ({ order, loading }))
-class Order extends PureComponent {
+@connect(({ schedule, loading }) => ({ schedule, loading }))
+class Schedule extends PureComponent {
   handleRefresh = newQuery => {
     const { location } = this.props
     const { query, pathname } = location
@@ -29,11 +29,11 @@ class Order extends PureComponent {
   }
 
   handleDeleteItems = () => {
-    const { dispatch, order } = this.props
-    const { list, pagination, selectedRowKeys } = order
+    const { dispatch, schedule } = this.props
+    const { list, pagination, selectedRowKeys } = schedule
 
     dispatch({
-      type: 'order/multiDelete',
+      type: 'schedule/multiDelete',
       payload: {
         ids: selectedRowKeys,
       },
@@ -49,22 +49,22 @@ class Order extends PureComponent {
 
   // modal对话框
   get modalProps() {
-    const { dispatch, order, loading } = this.props
-    const { currentItem, modalVisible, modalType } = order
+    const { dispatch, schedule, loading } = this.props
+    const { currentItem, modalVisible, modalType } = schedule
 
     return {
       item: modalType === 'create' ? {} : currentItem,
       visible: modalVisible,
       destroyOnClose: true,
       maskClosable: false,
-      confirmLoading: loading.effects[`order/${modalType}`],
+      confirmLoading: loading.effects[`schedule/${modalType}`],
       title: `${
         modalType === 'create' ? t`增加订单` : t`更新订单信息`
       }`,
       centered: true,
       onOk: data => {
         dispatch({
-          type: `order/${modalType}`,
+          type: `schedule/${modalType}`,
           payload: data,
         }).then(() => {
           this.handleRefresh()
@@ -72,7 +72,7 @@ class Order extends PureComponent {
       },
       onCancel() {
         dispatch({
-          type: 'order/hideModal',
+          type: 'schedule/hideModal',
         })
       },
     }
@@ -81,13 +81,13 @@ class Order extends PureComponent {
   // List 用于展示table
   get listProps() {
 
-    console.log("===page order listProps this.props===", this.props)
-    const { dispatch, order, loading } = this.props
-    const { list, pagination, selectedRowKeys } = order
+    console.log("===page schedule listProps this.props===", this.props)
+    const { dispatch, schedule, loading } = this.props
+    const { list, pagination, selectedRowKeys } = schedule
 
     return {
       dataSource: list,
-      loading: loading.effects['order/query'],
+      loading: loading.effects['schedule/query'],
       pagination,
       onChange: page => {
         this.handleRefresh({
@@ -97,7 +97,7 @@ class Order extends PureComponent {
       },
       onDeleteItem: id => {
         dispatch({
-          type: 'order/delete',
+          type: 'schedule/delete',
           payload: id,
         }).then(() => {
           this.handleRefresh({
@@ -110,7 +110,7 @@ class Order extends PureComponent {
       },
       onEditItem(item) {
         dispatch({
-          type: 'order/showModal',
+          type: 'schedule/showModal',
           payload: {
             modalType: 'update',
             currentItem: item,
@@ -121,7 +121,7 @@ class Order extends PureComponent {
         selectedRowKeys,
         onChange: keys => {
           dispatch({
-            type: 'order/updateState',
+            type: 'schedule/updateState',
             payload: {
               selectedRowKeys: keys,
             },
@@ -134,7 +134,7 @@ class Order extends PureComponent {
   get filterProps() {
     const { location, dispatch } = this.props
     // TODO why dispatch
-    console.log("=====page user index filterProps(), why dispatch====", this.props)
+    console.log("=====page schedule index filterProps(), why dispatch====", this.props)
     const { query } = location
 
     return {
@@ -148,7 +148,7 @@ class Order extends PureComponent {
       },
       onAdd() {
         dispatch({
-          type: 'order/showModal',
+          type: 'schedule/showModal',
           payload: {
             modalType: 'create',
           },
@@ -158,14 +158,14 @@ class Order extends PureComponent {
   }
 
   render() {
-    const { order } = this.props
-    const { selectedRowKeys } = order
-    console.log("===page order render() this.props===", this.props)
+    const { schedule } = this.props
+    const { selectedRowKeys } = schedule
+    console.log("===page schedule render() this.props===", this.props)
 
     return (
       <Page inner>
-        <Filter {...this.filterProps} />
-        {selectedRowKeys.length > 0 && (
+        {/* <Filter {...this.filterProps} /> */}
+        {/* {selectedRowKeys.length > 0 && (
           <Row style={{ marginBottom: 24, textAlign: 'right', fontSize: 13 }}>
             <Col>
               {`Selected ${selectedRowKeys.length} items `}
@@ -180,19 +180,19 @@ class Order extends PureComponent {
               </Popconfirm>
             </Col>
           </Row>
-        )}
+        )} */}
         <List {...this.listProps} />
-        <Modal {...this.modalProps} />
+        {/* <Modal {...this.modalProps} /> */}
       </Page>
     )
   }
 }
 
-Order.propTypes = {
-  order: PropTypes.object,
+Schedule.propTypes = {
+  schedule: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
   loading: PropTypes.object,
 }
 
-export default Order
+export default Schedule
