@@ -63,6 +63,7 @@ class Hotel extends PureComponent {
       }`,
       centered: true,
       onOk: data => {
+        console.log("============hotel data=======", data)
         dispatch({
           type: `hotel/${modalType}`,
           payload: data,

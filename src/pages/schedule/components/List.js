@@ -1,15 +1,21 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Table, Modal, Avatar, Calendar  } from 'antd'
+import { Table, Modal, Avatar, Calendar, Badge } from 'antd'
 import { DropOption } from 'components'
 import { t } from "@lingui/macro"
 import { Trans } from "@lingui/macro"
 import { Link } from 'umi'
 import styles from './List.less'
 
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
+
 const { confirm } = Modal
 
 class List extends PureComponent {
+  state = { visible: true };
+
   handleMenuClick = (record, e) => {
     const { onDeleteItem, onEditItem } = this.props
 
@@ -29,8 +35,86 @@ class List extends PureComponent {
     console.log(value.format('YYYY-MM-DD'), mode);
   }
 
+  getListData = (value) => {
+    let listData;
+    switch (value.date()) {
+      case 8:
+        listData = [
+          { type: 'warning', content: 'This is warning event.' },
+          { type: 'success', content: 'This is usual event.' },
+        ];
+        break;
+      case 10:
+        listData = [
+          { type: 'warning', content: 'This is warning event.' },
+          { type: 'success', content: 'This is usual event.' },
+          { type: 'error', content: 'This is error event.' },
+        ];
+        break;
+      case 15:
+        listData = [
+          { type: 'warning', content: 'This is warning event' },
+          { type: 'success', content: 'This is very long usual event。。....' },
+          { type: 'error', content: 'This is error event 1.' },
+          { type: 'error', content: 'This is error event 2.' },
+          { type: 'error', content: 'This is error event 3.' },
+          { type: 'error', content: 'This is error event 4.' },
+        ];
+        break;
+      default:
+    }
+    return listData || [];
+  }
+  
+  dateCellRender = (value) => {
+    const listData = this.getListData(value);
+    return (
+      <ul className="style.events">
+        {listData.map(item => (
+          <li key={item.content}>
+            <Badge status={item.type} text={item.content} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  
+  getMonthData = (value) => {
+    if (value.month() === 8) {
+      return 1394;
+    }
+  }
+  
+  monthCellRender = (value) => {
+    const num = this.getMonthData(value);
+    return num ? (
+      <div className="style.notes-month">
+        <section>{num}</section>
+        <span>Backlog number</span>
+      </div>
+    ) : null;
+  }
+
+  dayCellSelect = (date) => {
+    const selectedDate = moment(date).format('YYYY-MM-DD HH:mm:ss').toString()
+    console.log(selectedDate)
+    
+
+    return (
+      <Modal>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
+    );
+    // return (
+    //   <Modal {...this.modalProps} />
+    // );
+  }
+  
+
   render() {
-    const { onDeleteItem, onEditItem, datasource, ...tableProps } = this.props
+    const { onDeleteItem, onEditItem, datasource, onDateSelect, ...tableProps } = this.props
 
     // console.log("==========User List datasource===============", this.props.dataSource)
     console.log("==========2 Schedule List this.props===============", this.props)
@@ -125,7 +209,11 @@ class List extends PureComponent {
 
     return (
       
-      <Calendar onPanelChange={this.onPanelChange} />
+      <Calendar dateCellRender={this.dateCellRender} 
+        monthCellRender={this.monthCellRender} 
+        onPanelChange={this.onPanelChange}
+        onSelect={onDateSelect}
+      />
       /* <Table
         columns={columns}
         dataSource={datasource}

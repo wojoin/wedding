@@ -47,6 +47,7 @@ export default modelExtend(pageModel, {
       }
     },
     *query({ payload = {} }, { call, put }) {
+      // TODO 这里可以查询到档期信息，用于前端日历展示
       const data = yield call(queryOrderList, payload)
       console.log("===2 order query list===", data);
       if (data) {

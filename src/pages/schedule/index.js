@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Badge } from 'react'
 import PropTypes from 'prop-types'
 import { history } from 'umi'
 import { connect } from 'umi'
@@ -9,6 +9,10 @@ import { stringify } from 'qs'
 import List from './components/List'
 import Filter from './components/Filter'
 import Modal from './components/Modal'
+
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
 
 @connect(({ schedule, loading }) => ({ schedule, loading }))
 class Schedule extends PureComponent {
@@ -59,7 +63,7 @@ class Schedule extends PureComponent {
       maskClosable: false,
       confirmLoading: loading.effects[`schedule/${modalType}`],
       title: `${
-        modalType === 'create' ? t`增加订单` : t`更新订单信息`
+        modalType === 'create' ? t`增加档期` : t`更新档期信息`
       }`,
       centered: true,
       onOk: data => {
@@ -78,56 +82,134 @@ class Schedule extends PureComponent {
     }
   }
 
+  dayCellSelect = (date) => {
+    const selectedDate = moment(date).format('YYYY-MM-DD HH:mm:ss').toString()
+    console.log("===in dayCellSelect===",selectedDate)
+
+    const { dispatch, schedule, loading } = this.props
+    const { currentItem, modalVisible, modalType } = schedule
+
+    dispatch({
+      type: 'schedule/showModal',
+      payload: {
+        modalType: 'create',
+      },
+    })
+
+    // return {
+    //   item: modalType === 'create' ? {} : currentItem,
+    //   visible: modalVisible,
+    //   destroyOnClose: true,
+    //   maskClosable: false,
+    //   confirmLoading: loading.effects[`schedule/${modalType}`],
+    //   title: `${
+    //     modalType === 'create' ? t`增加档期` : t`更新档期信息`
+    //   }`,
+    //   centered: true,
+    //   onOk: data => {
+    //     dispatch({
+    //       type: `schedule/${modalType}`,
+    //       payload: data,
+    //     }).then(() => {
+    //       this.handleRefresh()
+    //     })
+    //   },
+    //   onCancel() {
+    //     dispatch({
+    //       type: 'schedule/hideModal',
+    //     })
+    //   },
+    // }
+  }
+
   // List 用于展示table
   get listProps() {
 
     console.log("===page schedule listProps this.props===", this.props)
+    // const { dispatch, schedule, loading } = this.props
+    // const { list, pagination, selectedRowKeys } = schedule
+
     const { dispatch, schedule, loading } = this.props
-    const { list, pagination, selectedRowKeys } = schedule
+    const { currentItem, modalVisible, modalType } = schedule
 
     return {
-      dataSource: list,
+
       loading: loading.effects['schedule/query'],
-      pagination,
-      onChange: page => {
-        this.handleRefresh({
-          page: page.current,
-          pageSize: page.pageSize,
-        })
+      onDateSelect: date => {
+        console.log("====schedule date select===", date)
+        this.dayCellSelect(date)
       },
-      onDeleteItem: id => {
-        dispatch({
-          type: 'schedule/delete',
-          payload: id,
-        }).then(() => {
-          this.handleRefresh({
-            page:
-              list.length === 1 && pagination.current > 1
-                ? pagination.current - 1
-                : pagination.current,
-          })
-        })
-      },
-      onEditItem(item) {
-        dispatch({
-          type: 'schedule/showModal',
-          payload: {
-            modalType: 'update',
-            currentItem: item,
-          },
-        })
-      },
-      rowSelection: {
-        selectedRowKeys,
-        onChange: keys => {
-          dispatch({
-            type: 'schedule/updateState',
-            payload: {
-              selectedRowKeys: keys,
-            },
-          })
-        },
-      },
+      // onDateSelect: date => {
+      //   const selectedDate = moment(date).format('YYYY-MM-DD HH:mm:ss').toString()
+      //   console.log("===selectedDate===",selectedDate)
+      //   return {
+      //     item: modalType === 'create' ? {} : currentItem,
+      //     visible: modalVisible,
+      //     destroyOnClose: true,
+      //     maskClosable: false,
+      //     confirmLoading: loading.effects[`schedule/${modalType}`],
+      //     title: `${
+      //       modalType === 'create' ? t`增加档期` : t`更新档期信息`
+      //     }`,
+      //     centered: true,
+      //     onOk: data => {
+      //       dispatch({
+      //         type: `schedule/${modalType}`,
+      //         payload: data,
+      //       }).then(() => {
+      //         this.handleRefresh()
+      //       })
+      //     },
+      //     onCancel() {
+      //       dispatch({
+      //         type: 'schedule/hideModal',
+      //       })
+      //     },
+      //   }
+      // },
+
+      // dataSource: list,
+      // loading: loading.effects['schedule/query'],
+      // pagination,
+      // onChange: page => {
+      //   this.handleRefresh({
+      //     page: page.current,
+      //     pageSize: page.pageSize,
+      //   })
+      // },
+      // onDeleteItem: id => {
+      //   dispatch({
+      //     type: 'schedule/delete',
+      //     payload: id,
+      //   }).then(() => {
+      //     this.handleRefresh({
+      //       page:
+      //         list.length === 1 && pagination.current > 1
+      //           ? pagination.current - 1
+      //           : pagination.current,
+      //     })
+      //   })
+      // },
+      // onEditItem(item) {
+      //   dispatch({
+      //     type: 'schedule/showModal',
+      //     payload: {
+      //       modalType: 'update',
+      //       currentItem: item,
+      //     },
+      //   })
+      // },
+      // rowSelection: {
+      //   selectedRowKeys,
+      //   onChange: keys => {
+      //     dispatch({
+      //       type: 'schedule/updateState',
+      //       payload: {
+      //         selectedRowKeys: keys,
+      //       },
+      //     })
+      //   },
+      // },
     }
   }
 
@@ -164,8 +246,8 @@ class Schedule extends PureComponent {
 
     return (
       <Page inner>
-        {/* <Filter {...this.filterProps} /> */}
-        {/* {selectedRowKeys.length > 0 && (
+        <Filter {...this.filterProps} />
+        {selectedRowKeys.length > 0 && (
           <Row style={{ marginBottom: 24, textAlign: 'right', fontSize: 13 }}>
             <Col>
               {`Selected ${selectedRowKeys.length} items `}
@@ -180,9 +262,9 @@ class Schedule extends PureComponent {
               </Popconfirm>
             </Col>
           </Row>
-        )} */}
-        <List {...this.listProps} />
-        {/* <Modal {...this.modalProps} /> */}
+        )}
+        <List {...this.listProps}/>
+        <Modal {...this.modalProps} />
       </Page>
     )
   }
