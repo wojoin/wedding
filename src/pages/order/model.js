@@ -38,9 +38,9 @@ export default modelExtend(pageModel, {
 
   effects: {
     *create({ payload }, { call, put }) {
-      console.log("===1 order create before===", payload);
+      // console.log("===1 order create before===", payload);
       const data = yield call(createOrder, payload)
-      console.log("===1 order create===", data);
+      console.log("===model: order create===", data);
       if (data.success) {
         yield put({ type: 'hideModal' })
       } else {
@@ -49,7 +49,7 @@ export default modelExtend(pageModel, {
     },
     *query({ payload = {} }, { call, put }) {
       const data = yield call(queryOrderList, payload)
-      console.log("===2 order query list===", data);
+      console.log("===model: order list===", data);
       if (data) {
         yield put({
           type: 'querySuccess',
@@ -69,7 +69,7 @@ export default modelExtend(pageModel, {
       const id = yield select(({ order }) => order.currentItem.id)
       const newOrder = { ...payload, id }
       const data = yield call(updateOrder, newOrder)
-      console.log("===3 order update===", data);
+      console.log("===model: order update===", data);
       if (data.success) {
         yield put({ type: 'hideModal' })
       } else {
@@ -78,9 +78,9 @@ export default modelExtend(pageModel, {
     },
 
     *delete({ payload }, { call, put, select }) {
-      console.log("===4 order delete=== befor", payload);
+      // console.log("===4 order delete=== befor", payload);
       const data = yield call(removeOrder, { id: payload })
-      console.log("===4 order delete=== after", data);
+      console.log("===model: order delete===", data);
       const { selectedRowKeys } = yield select(_ => _.order)
       if (data.success) {
         yield put({
@@ -96,7 +96,7 @@ export default modelExtend(pageModel, {
 
     *multiDelete({ payload }, { call, put }) {
       const data = yield call(removeOrderList, payload)
-      console.log("===5 order multi delete===", data);
+      console.log("===model: order multi delete===", data);
       if (data.success) {
         yield put({ type: 'updateState', payload: { selectedRowKeys: [] } })
       } else {

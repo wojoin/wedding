@@ -21,6 +21,9 @@ export default {
   removeHotel: 'DELETE /hotel/:id',
   removeHotelList: 'POST /hotels/delete',
 
+  // schedule
+  querySchedule: '/schedule/:date',
+
 
   queryPostList: '/posts',
 

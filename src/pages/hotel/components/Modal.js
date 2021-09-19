@@ -82,9 +82,7 @@ class HotelModal extends PureComponent {
   
 
   render() {
-    // console.log("==========3 User Modal this.props==========", this.props)
     const { item = {}, onOk, form, ...modalProps } = this.props
-
     return (
       <Modal {...modalProps} onOk={this.handleOk}>
         <Form ref={this.formRef} name="control-ref" layout="horizontal" initialValues={{ ...item}}>

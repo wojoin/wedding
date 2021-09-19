@@ -2,7 +2,13 @@ import { Mock, Constant, randomAvatar } from './_utils'
 import qs from 'qs'
 import { Rate } from 'antd'
 
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
+
 const { ApiPrefix } = Constant
+
+let scheduleData = {};
 
 let ordersListData = Mock.mock({
   'data|80-100': [
@@ -161,7 +167,7 @@ module.exports = {
   },
 
   [`GET ${ApiPrefix}/orders`](req, res) {
-    console.log("==============GET users============")
+    console.log("==============GET orders============")
     const { query } = req
     let { pageSize, page, ...other } = query
     pageSize = pageSize || 10
@@ -172,22 +178,6 @@ module.exports = {
       if ({}.hasOwnProperty.call(other, key)) {
         newData = newData.filter(item => {
           if ({}.hasOwnProperty.call(item, key)) {
-            if (key === 'address') {
-              return other[key].every(iitem => item[key].indexOf(iitem) > -1)
-            } else if (key === 'createTime') {
-              const start = new Date(other[key][0]).getTime()
-              const end = new Date(other[key][1]).getTime()
-              const now = new Date(item[key]).getTime()
-
-              if (start && end) {
-                return now >= start && now <= end
-              }
-              return true
-            } else if(key === "level") {
-              return (
-                <Rate value={newData.level} />
-              )
-            }
             return (
               String(item[key])
                 .trim()
@@ -217,13 +207,26 @@ module.exports = {
     newData.createTime = Mock.mock('@now')
     newData.id = Mock.mock('@id')
 
+    const weddingDate = moment(newData.weddingdate).format('YYYY-MM-DD').toString();
+
+    // scheduleData.hasOwnProperty(weddingDate)
+    if(weddingDate in scheduleData) {
+      scheduleData[weddingDate].push(newData)
+    } else {
+      const arr = [];
+      arr.push(newData)
+      scheduleData[weddingDate] = arr;
+    }
+
+    console.log("===============scheduleData============", scheduleData)
+
     database.unshift(newData)
 
     res.status(200).end()
   },
 
   [`GET ${ApiPrefix}/order/:id`](req, res) {
-    console.log("==============GET order by id============")
+    console.log("==============GET order by id============", req.params)
     const { id } = req.params
     const data = queryArray(database, id, 'id')
     if (data) {

@@ -1,12 +1,22 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
+import { Form, Input, InputNumber, Radio, Modal, Cascader, DatePicker, Select } from 'antd'
 import city from 'utils/city'
 import { t } from "@lingui/macro"
 // import Rater from "../../../utils/Rater.js"
-import { Rate } from 'antd';
+import locale from 'antd/es/date-picker/locale/zh_CN';
 
+const { Option } = Select;
 const FormItem = Form.Item
+
+
+const weddinghotel1 = "香格里拉";
+const weddinghotel2 = "绿地洲际酒店";
+const weddinghotel3 = "金陵饭店";
+const weddinghotel4 = "古南都饭店";
+const weddinghotel5 = "南京世茂滨江希尔顿酒店";
+const weddinghotel6 = "玄武饭店";
+
 
 const formItemLayout = {
   labelCol: {
@@ -72,13 +82,32 @@ class OrderModal extends PureComponent {
       })
   }
 
+  onChange = (value) => {
+    console.log("==========wedding order change========", value)
+  }
+
   render() {
-    console.log("==========3 Order Modal this.props==========", this.props)
+    console.log("===4.1 Order Modal this.props==========", this.props)
     const { item = {}, onOk, form, ...modalProps } = this.props
 
     return (
       <Modal {...modalProps} onOk={this.handleOk}>
         <Form ref={this.formRef} name="control-ref" initialValues={{ ...item }} layout="horizontal">
+          <Form.Item name='hotelname' label={t`酒店名`} rules={[{ required: true }]} hasFeedback {...formItemLayout}>
+            <Select placeholder="请选择酒店" onChange={this.onChange}>
+              <Option value={weddinghotel1}>{weddinghotel1}</Option>
+              <Option value={weddinghotel2}>{weddinghotel2}</Option>
+              <Option value={weddinghotel3}>{weddinghotel3}</Option>
+              <Option value={weddinghotel4}>{weddinghotel4}</Option>
+              <Option value={weddinghotel5}>{weddinghotel5}</Option>
+              <Option value={weddinghotel6}>{weddinghotel6}</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="weddingdate" label={t`婚期`} rules={[{ required: true, message: '请选择婚期', }]} hasFeedback {...formItemLayout}>
+            <DatePicker locale={locale} format='YYYY-MM-DD' style={{ width: '100%' }}/>
+          </Form.Item>
+          
           <FormItem name='hengjia' rules={[{ required: true }]}
             label={t`桁架`} hasFeedback {...formItemLayout}>
             <Input />

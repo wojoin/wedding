@@ -1,7 +1,7 @@
 const { pathToRegexp } = require("path-to-regexp")
 import api from 'api'
 
-const { queryOrder } = api
+const { querySchedule } = api
 
 export default {
   namespace: 'scheduleDetail',
@@ -13,9 +13,12 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname }) => {
-        const match = pathToRegexp('/order/:id').exec(pathname)
+        const match = pathToRegexp('/schedule/:date').exec(pathname)
+        // const match = pathToRegexp('/schedule/2021-09-04').exec(pathname)
+        console.log("=== ScheduleDetail match===", match)
         if (match) {
-          dispatch({ type: 'query', payload: { id: match[1] } })
+          // console.log("=== ScheduleDetail match===", match)
+          dispatch({ type: 'query', payload: { date: match[1] } })
         }
       })
     },
@@ -23,7 +26,9 @@ export default {
 
   effects: {
     *query({ payload }, { call, put }) {
-      const data = yield call(queryOrder, payload)
+      console.log("=== ScheduleDetail query before===", payload)
+      const data = yield call(querySchedule, payload)
+      console.log("=== ScheduleDetail query after===", payload)
       const { success, message, status, ...other } = data
       if (success) {
         yield put({
@@ -33,6 +38,7 @@ export default {
           },
         })
       } else {
+        console.log("=== ScheduleDetail query error===")
         throw data
       }
     },

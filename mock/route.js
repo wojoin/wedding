@@ -81,6 +81,20 @@ const database = [
     route: '/schedule',
   },
   {
+    id: '61',
+    menuParentId: '-1',
+    breadcrumbParentId: '6',
+    name: '档期详情',
+    zh: {
+      name: '档期详情'
+    },
+    'pt-br': {
+      name: 'Detalhes do usuário'
+    },
+    route: '/schedule/:date',
+  },
+
+  {
     id: '8',
     breadcrumbParentId: '',
     name: '供应商管理',

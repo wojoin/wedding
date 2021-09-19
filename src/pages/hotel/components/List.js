@@ -42,9 +42,6 @@ class List extends PureComponent {
 
   render() {
     const { onDeleteItem, onEditItem, datasource, ...tableProps } = this.props
-
-    console.log("==========2 Hotel List datasource===============", datasource)
-
     const columns = [
       {
         title: <Trans><strong>图像</strong></Trans>,

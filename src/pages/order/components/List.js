@@ -28,8 +28,7 @@ class List extends PureComponent {
   render() {
     const { onDeleteItem, onEditItem, datasource, ...tableProps } = this.props
 
-    // console.log("==========User List datasource===============", this.props.dataSource)
-    console.log("==========2 User List this.props===============", this.props)
+    console.log("===3.1 Order List this.props==========", this.props)
 
     const columns = [
       // {

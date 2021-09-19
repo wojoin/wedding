@@ -27,7 +27,7 @@ export default modelExtend(pageModel, {
       history.listen(location => {
         if (pathToRegexp('/hotel').exec(location.pathname)) {
           const payload = location.query || { page: 1, pageSize: 10 }
-          console.log("===0 hotel path access===")
+          console.log("===modal: hotel path access===")
           dispatch({
             type: 'query',
             payload,
@@ -40,7 +40,7 @@ export default modelExtend(pageModel, {
   effects: {
     *create({ payload }, { call, put }) {
       const data = yield call(createHotel, payload)
-      console.log("===1 hotel create===", data);
+      console.log("===modal: hotel create===", data);
       if (data.success) {
         yield put({ type: 'hideModal' })
       } else {
@@ -50,7 +50,7 @@ export default modelExtend(pageModel, {
 
     *query({ payload = {} }, { call, put }) {
       const data = yield call(queryHotelList, payload)
-      console.log("===2 hotel query list===", data);
+      console.log("===modal: hotel list===", data);
       if (data) {
         yield put({
           type: 'querySuccess',
@@ -67,12 +67,10 @@ export default modelExtend(pageModel, {
     },
 
     *update({ payload }, { select, call, put }) {
-      console.log("======hotel update===")
       const id = yield select(({ hotel }) => hotel.currentItem.id)
       const newHotel = { ...payload, id }
       const data = yield call(updateHotel, newHotel)
-
-      console.log("===3 hotel update===", data);
+      console.log("===modal: hotel update===", data);
       if (data.success) {
         yield put({ type: 'hideModal' })
       } else {
@@ -82,7 +80,7 @@ export default modelExtend(pageModel, {
 
     *delete({ payload }, { call, put, select }) {
       const data = yield call(removeHotel, { id: payload })
-      console.log("===4 hotel delete===", data);
+      console.log("===modal: hotel delete===", data);
       const { selectedRowKeys } = yield select(_ => _.hotel)
       if (data.success) {
         yield put({
@@ -98,7 +96,7 @@ export default modelExtend(pageModel, {
 
     *multiDelete({ payload }, { call, put }) {
       const data = yield call(removeHotelList, payload)
-      console.log("===5 hotel multi delete===", data);
+      console.log("===modal: hotel multi delete===", data);
       if (data.success) {
         yield put({ type: 'updateState', payload: { selectedRowKeys: [] } })
       } else {

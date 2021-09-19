@@ -49,6 +49,7 @@ class Order extends PureComponent {
 
   // modal对话框
   get modalProps() {
+    console.log("===4. Order modalProps(), this.props===", this.props)
     const { dispatch, order, loading } = this.props
     const { currentItem, modalVisible, modalType } = order
 
@@ -80,8 +81,7 @@ class Order extends PureComponent {
 
   // List 用于展示table
   get listProps() {
-
-    console.log("===page order listProps this.props===", this.props)
+    console.log("===3. Order listProps(), this.props===", this.props)
     const { dispatch, order, loading } = this.props
     const { list, pagination, selectedRowKeys } = order
 
@@ -134,7 +134,7 @@ class Order extends PureComponent {
   get filterProps() {
     const { location, dispatch } = this.props
     // TODO why dispatch
-    console.log("=====page user index filterProps(), why dispatch====", this.props)
+    console.log("===2. Order filterProps(), this.props===", this.props)
     const { query } = location
 
     return {
@@ -160,7 +160,7 @@ class Order extends PureComponent {
   render() {
     const { order } = this.props
     const { selectedRowKeys } = order
-    console.log("===page order render() this.props===", this.props)
+    console.log("===1. Order render(),  this.props===", this.props)
 
     return (
       <Page inner>

@@ -4,15 +4,15 @@ import { connect } from 'umi'
 import { Page } from 'components'
 import styles from './index.less'
 
-@connect(({ orderDetail }) => ({ orderDetail }))
-class OrderDetail extends PureComponent {
+@connect(({ scheduleDetail }) => ({ scheduleDetail }))
+class ScheduleDetail extends PureComponent {
   render() {
-    const { orderDetail } = this.props
-    const { data } = orderDetail
+    const { scheduleDetail } = this.props
+    const { data } = scheduleDetail
+
+    console.log("===schedule detail===", data)
     const content = []
     for (let key in data) {
-      if(key == "id" || key == "statusCode" || key == "avatar")
-        continue
       if ({}.hasOwnProperty.call(data, key)) {
         content.push(
           <div key={key} className={styles.item}>
@@ -30,8 +30,8 @@ class OrderDetail extends PureComponent {
   }
 }
 
-OrderDetail.propTypes = {
-  orderDetail: PropTypes.object,
+ScheduleDetail.propTypes = {
+  scheduleDetail: PropTypes.object,
 }
 
-export default OrderDetail
+export default ScheduleDetail

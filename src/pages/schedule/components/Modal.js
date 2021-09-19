@@ -35,12 +35,10 @@ class ScheduleModal extends PureComponent {
         }
         
         console.log("===schedule data===", data)
-        
         // if(!data.longmenjia) {
         //   data.longmenjia = 60
         // }
         
-
         // 提交对话框的数据
         console.log("===submit ok===")
         onOk(data)
@@ -64,12 +62,12 @@ class ScheduleModal extends PureComponent {
           <FormItem name='weddingdate' label={t`婚礼日期`} hasFeedback {...formItemLayout}>
           <Input />
           </FormItem>
-          <FormItem name='weddingfloor' label={t`楼层`} hasFeedback {...formItemLayout}>
+          {/* <FormItem name='weddingfloor' label={t`楼层`} hasFeedback {...formItemLayout}>
             <Input />
           </FormItem>
           <FormItem name='weddingtime' label={t`进场时间`} hasFeedback {...formItemLayout}>
           <Input />
-          </FormItem>
+          </FormItem> */}
         </Form>
       </Modal>
     )

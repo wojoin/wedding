@@ -14,6 +14,7 @@ export default {
     setup({ dispatch, history }) {
       history.listen(({ pathname }) => {
         const match = pathToRegexp('/order/:id').exec(pathname)
+        console.log("===OrderDetail===", match)
         if (match) {
           dispatch({ type: 'query', payload: { id: match[1] } })
         }

@@ -10,9 +10,15 @@ import List from './components/List'
 import Filter from './components/Filter'
 import Modal from './components/Modal'
 
+import axios from 'axios'
+
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
+
+import api from 'api'
+
+const { queryOrder } = api
 
 @connect(({ schedule, loading }) => ({ schedule, loading }))
 class Schedule extends PureComponent {
@@ -83,43 +89,50 @@ class Schedule extends PureComponent {
   }
 
   dayCellSelect = (date) => {
-    const selectedDate = moment(date).format('YYYY-MM-DD HH:mm:ss').toString()
+    const selectedDate = moment(date).format('YYYY-MM-DD').toString()
     console.log("===in dayCellSelect===",selectedDate)
-
+    
     const { dispatch, schedule, loading } = this.props
     const { currentItem, modalVisible, modalType } = schedule
 
-    dispatch({
-      type: 'schedule/showModal',
-      payload: {
-        modalType: 'create',
-      },
-    })
+    // axios.get('http://localhost:7000/schedule/' + selectedDate).then(response => {
+    //   console.log("===dayCellSelect in schedule===", response.data)
+    // }).catch(error => {
+    //   console.log(error)
+    // })
+    
 
-    // return {
-    //   item: modalType === 'create' ? {} : currentItem,
-    //   visible: modalVisible,
-    //   destroyOnClose: true,
-    //   maskClosable: false,
-    //   confirmLoading: loading.effects[`schedule/${modalType}`],
-    //   title: `${
-    //     modalType === 'create' ? t`增加档期` : t`更新档期信息`
-    //   }`,
-    //   centered: true,
-    //   onOk: data => {
-    //     dispatch({
-    //       type: `schedule/${modalType}`,
-    //       payload: data,
-    //     }).then(() => {
-    //       this.handleRefresh()
-    //     })
+    return {
+      item: modalType === 'query',
+      visible: modalVisible,
+      destroyOnClose: true,
+      maskClosable: false,
+      confirmLoading: loading.effects[`schedule/${modalType}`],
+      title: `${
+        modalType === 'query'
+      }`,
+      centered: true,
+      onOk: selectedDate => {
+        dispatch({
+          type: `schedule/${modalType}`,
+          payload: selectedDate,
+        }).then(() => {
+          this.handleRefresh()
+        })
+      },
+      onCancel() {
+        dispatch({
+          type: 'schedule/hideModal',
+        })
+      },
+    }
+
+    // dispatch({
+    //   type: 'schedule/showModal',
+    //   payload: {
+    //     modalType: 'query',
     //   },
-    //   onCancel() {
-    //     dispatch({
-    //       type: 'schedule/hideModal',
-    //     })
-    //   },
-    // }
+    // })
   }
 
   // List 用于展示table
@@ -133,83 +146,11 @@ class Schedule extends PureComponent {
     const { currentItem, modalVisible, modalType } = schedule
 
     return {
-
-      loading: loading.effects['schedule/query'],
+      // loading: loading.effects['schedule/query'],
       onDateSelect: date => {
         console.log("====schedule date select===", date)
         this.dayCellSelect(date)
       },
-      // onDateSelect: date => {
-      //   const selectedDate = moment(date).format('YYYY-MM-DD HH:mm:ss').toString()
-      //   console.log("===selectedDate===",selectedDate)
-      //   return {
-      //     item: modalType === 'create' ? {} : currentItem,
-      //     visible: modalVisible,
-      //     destroyOnClose: true,
-      //     maskClosable: false,
-      //     confirmLoading: loading.effects[`schedule/${modalType}`],
-      //     title: `${
-      //       modalType === 'create' ? t`增加档期` : t`更新档期信息`
-      //     }`,
-      //     centered: true,
-      //     onOk: data => {
-      //       dispatch({
-      //         type: `schedule/${modalType}`,
-      //         payload: data,
-      //       }).then(() => {
-      //         this.handleRefresh()
-      //       })
-      //     },
-      //     onCancel() {
-      //       dispatch({
-      //         type: 'schedule/hideModal',
-      //       })
-      //     },
-      //   }
-      // },
-
-      // dataSource: list,
-      // loading: loading.effects['schedule/query'],
-      // pagination,
-      // onChange: page => {
-      //   this.handleRefresh({
-      //     page: page.current,
-      //     pageSize: page.pageSize,
-      //   })
-      // },
-      // onDeleteItem: id => {
-      //   dispatch({
-      //     type: 'schedule/delete',
-      //     payload: id,
-      //   }).then(() => {
-      //     this.handleRefresh({
-      //       page:
-      //         list.length === 1 && pagination.current > 1
-      //           ? pagination.current - 1
-      //           : pagination.current,
-      //     })
-      //   })
-      // },
-      // onEditItem(item) {
-      //   dispatch({
-      //     type: 'schedule/showModal',
-      //     payload: {
-      //       modalType: 'update',
-      //       currentItem: item,
-      //     },
-      //   })
-      // },
-      // rowSelection: {
-      //   selectedRowKeys,
-      //   onChange: keys => {
-      //     dispatch({
-      //       type: 'schedule/updateState',
-      //       payload: {
-      //         selectedRowKeys: keys,
-      //       },
-      //     })
-      //   },
-      // },
     }
   }
 

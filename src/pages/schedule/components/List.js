@@ -7,9 +7,41 @@ import { Trans } from "@lingui/macro"
 import { Link } from 'umi'
 import styles from './List.less'
 
+import axios from 'axios'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
+
+
+const weddinghotel1 = "香格里拉";
+const weddinghotel2 = "绿地洲际酒店";
+const weddinghotel3 = "金陵饭店";
+const weddinghotel4 = "古南都饭店";
+const weddinghotel5 = "南京世茂滨江希尔顿酒店";
+const weddinghotel6 = "玄武饭店";
+
+function randomNum(minNum,maxNum){ 
+  switch(arguments.length){ 
+      case 1: 
+          return parseInt(Math.random()*minNum+1,10); 
+      break; 
+      case 2: 
+          return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+      break; 
+          default: 
+              return 0; 
+          break; 
+  } 
+} 
+
+let hotelMap = {
+  1: weddinghotel1,
+  2: weddinghotel2,
+  3: weddinghotel3,
+  4: weddinghotel4,
+  5: weddinghotel5,
+  6: weddinghotel6
+}
 
 const { confirm } = Modal
 
@@ -36,46 +68,98 @@ class List extends PureComponent {
   }
 
   getListData = (value) => {
-    let listData;
+    const selectedDate = moment(value).format('MM/DD').toString()
+    // const selectedDate = moment(value).format('YYYY-MM-DD').toString()
+    let hotelIndex;
+    let hotelIndex2;
+    let hotelIndex3;
+    let hotelValue;
+    let hotelValue2;
+    let hotelValue3;
+
+    let listData = [];
     switch (value.date()) {
       case 8:
+        hotelIndex = 2
+        hotelIndex2 = 3
+        // hotelIndex = randomNum(1, 6);
+        // hotelIndex2 = randomNum(1, 6);
+        hotelValue = hotelMap[hotelIndex];
+        hotelValue2 = hotelMap[hotelIndex2];
         listData = [
-          { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' },
+          { type: 'success', content: selectedDate + ' ' + hotelValue },
+          { type: 'warning', content: selectedDate + ' ' + hotelValue2 },
         ];
+        console.log("=====8=======", listData)
         break;
       case 10:
+        hotelIndex = 3
+        hotelIndex2 = 5
+        hotelIndex3 = 6
+        // hotelIndex = randomNum(1, 6);
+        // hotelIndex2 = randomNum(1, 6);
+        // hotelIndex3 = randomNum(1, 6);
+        hotelValue = hotelMap[hotelIndex];
+        hotelValue2 = hotelMap[hotelIndex2];
+        hotelValue3 = hotelMap[hotelIndex3];
+
         listData = [
-          { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' },
-          { type: 'error', content: 'This is error event.' },
+          { type: 'success', content: selectedDate + ' ' + hotelValue },
+          { type: 'warning', content: selectedDate + ' ' + hotelValue2 },
+          { type: 'error', content: selectedDate + ' ' + hotelValue3 },
         ];
+        console.log("=====10=======", listData)
         break;
       case 15:
+        hotelIndex = 1
+        hotelIndex2 = 3
+        hotelIndex3 = 6
+        // hotelIndex = randomNum(1, 6);
+        // hotelIndex2 = randomNum(1, 6);
+        // hotelIndex3 = randomNum(1, 6);
+        hotelValue = hotelMap[hotelIndex];
+        hotelValue2 = hotelMap[hotelIndex2];
+        hotelValue3 = hotelMap[hotelIndex3];
+
         listData = [
-          { type: 'warning', content: 'This is warning event' },
-          { type: 'success', content: 'This is very long usual event。。....' },
-          { type: 'error', content: 'This is error event 1.' },
-          { type: 'error', content: 'This is error event 2.' },
-          { type: 'error', content: 'This is error event 3.' },
-          { type: 'error', content: 'This is error event 4.' },
+          { type: 'success', content: selectedDate + ' ' + hotelValue },
+          { type: 'warning', content: selectedDate + ' ' + hotelValue2 },
+          { type: 'error', content: selectedDate + ' ' + hotelValue3 },
         ];
+        console.log("=====15=======", listData)
         break;
-      default:
+      case 17:
+        hotelIndex = 3
+        // hotelIndex = randomNum(1, 6);
+        hotelValue = hotelMap[hotelIndex];
+        listData = [
+          { type: 'success', content: selectedDate + ' ' + hotelValue },
+        ];
+        console.log("=====17=======", listData)
+        break;
+      // default:
     }
     return listData || [];
   }
   
   dateCellRender = (value) => {
+    const selectedDate = moment(value).format('YYYY-MM-DD').toString()
+    
+    // axios.get('http://localhost:7000/schedule/' + selectedDate).then(response => {
+    //   console.log("===dateCellRender===", response.data)
+    // }).catch(error => {
+    //   console.log(error)
+    // })
+
     const listData = this.getListData(value);
     return (
-      <ul className="style.events">
+      <div className="styles.events">
         {listData.map(item => (
-          <li key={item.content}>
+          <div key={item.content}>
             <Badge status={item.type} text={item.content} />
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     );
   }
   
@@ -88,28 +172,11 @@ class List extends PureComponent {
   monthCellRender = (value) => {
     const num = this.getMonthData(value);
     return num ? (
-      <div className="style.notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
+      <div className="styles.notes-month">
+        <section>婚礼场次</section>
+        <span>16</span>
       </div>
     ) : null;
-  }
-
-  dayCellSelect = (date) => {
-    const selectedDate = moment(date).format('YYYY-MM-DD HH:mm:ss').toString()
-    console.log(selectedDate)
-    
-
-    return (
-      <Modal>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Modal>
-    );
-    // return (
-    //   <Modal {...this.modalProps} />
-    // );
   }
   
 
@@ -210,7 +277,7 @@ class List extends PureComponent {
     return (
       
       <Calendar dateCellRender={this.dateCellRender} 
-        monthCellRender={this.monthCellRender} 
+        monthCellRender={this.monthCellRender}
         onPanelChange={this.onPanelChange}
         onSelect={onDateSelect}
       />

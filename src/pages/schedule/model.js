@@ -4,7 +4,7 @@ import api from 'api'
 import { pageModel } from 'utils/model'
 
 const {
-  queryOrderList,
+  querySchedule,
   createOrder,
   removeOrder,
   updateOrder,
@@ -17,14 +17,14 @@ export default modelExtend(pageModel, {
   state: {
     currentItem: {},
     modalVisible: false,
-    modalType: 'create',
+    modalType: 'query',
     selectedRowKeys: [],
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(location => {
-        if (pathToRegexp('/schedule').exec(location.pathname)) {
+        if (pathToRegexp('/schedule/').exec(location.pathname)) {
           const payload = location.query || { page: 1, pageSize: 10 }
           dispatch({
             type: 'query',
@@ -48,8 +48,9 @@ export default modelExtend(pageModel, {
     },
     *query({ payload = {} }, { call, put }) {
       // TODO 这里可以查询到档期信息，用于前端日历展示
-      const data = yield call(queryOrderList, payload)
-      console.log("===2 order query list===", data);
+      // console.log("===modal: schedule query list before===", payload);
+      const data = yield call(querySchedule, payload)
+      // console.log("===modal: schedule query list after===", data);
       if (data) {
         yield put({
           type: 'querySuccess',
