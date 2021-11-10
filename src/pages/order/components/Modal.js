@@ -6,6 +6,8 @@ import { t } from "@lingui/macro"
 // import Rater from "../../../utils/Rater.js"
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
+import { Image } from 'antd';
+
 const { Option } = Select;
 const FormItem = Form.Item
 
@@ -124,6 +126,10 @@ class OrderModal extends PureComponent {
 
           <FormItem name='tieyi' label={t`铁艺`} hasFeedback {...formItemLayout}>
             <InputNumber min={1} max={10} style={{ width: 275 }} />
+            <Image
+              width={200}
+              src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
+            />
           </FormItem>
           <FormItem name='buman' label={t`布幔`} hasFeedback {...formItemLayout}>
             <InputNumber min={20} max={80} style={{ width: 275 }}  />
