@@ -7,7 +7,13 @@ import { Trans } from "@lingui/macro"
 import { Link } from 'umi'
 import styles from './List.less'
 
+import {vesselDict, tieyiDict, ttaiDict, bumanDict, carpetDict} from './Images'
+
 const { confirm } = Modal
+
+
+
+// let carpet = {1: }
 
 class List extends PureComponent {
   handleMenuClick = (record, e) => {
@@ -63,35 +69,39 @@ class List extends PureComponent {
         dataIndex: 'ttaitool',
         key: 'ttaitool',
         // width: '10%',
+        render: text => <Avatar size={64} src={ttaiDict[text]} />
       },
       {
         title: <Trans><strong>铁艺</strong></Trans>,
         dataIndex: 'tieyi',
         key: 'tieyi',
         // width: '7%',
+        render: text => <Avatar size={64} src={tieyiDict[text]} />
       },
       {
         title: <Trans><strong>布幔</strong></Trans>,
         dataIndex: 'buman',
         key: 'buman',
         // width: '7%',
+        render: text => <Avatar size={64} src={bumanDict[text]} />
       },
       {
         title: <Trans><strong>主桌器皿</strong></Trans>,
         dataIndex: 'vessel',
         key: 'vessel',
         // width: '7%',
-        render: text => <Avatar src={require('../../../../assets/images/white.png')} />
-      },
-      {
-        title: <Trans><strong>椅背结</strong></Trans>,
-        dataIndex: 'chairknot',
-        key: 'chairknot',
+        render: text => <Avatar size={64} src={vesselDict[text]} />
       },
       {
         title: <Trans><strong>地毯</strong></Trans>,
         dataIndex: 'carpet',
         key: 'carpet',
+        render: text => <Avatar size={64} src={carpetDict[text]} />
+      },
+      {
+        title: <Trans><strong>椅背结</strong></Trans>,
+        dataIndex: 'chairknot',
+        key: 'chairknot',
       },
       {
         title: <Trans><strong>PA灯</strong></Trans>,

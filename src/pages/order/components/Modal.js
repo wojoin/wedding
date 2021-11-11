@@ -48,10 +48,14 @@ class OrderModal extends PureComponent {
         // console.log("===order data===", data)
         
         if(!data.longmenjia) {
+          data.hengjia = 0.8
+        }
+
+        if(!data.longmenjia) {
           data.longmenjia = 60
         }
         if(!data.ttaitool) {
-          data.ttaitool = 80
+          data.ttaitool = 2
         }
         
         if(!data.tieyi) {
@@ -119,7 +123,13 @@ class OrderModal extends PureComponent {
           
           <FormItem name='hengjia' rules={[{ required: true }]}
             label={t`桁架`} hasFeedback {...formItemLayout}>
-            <Input />
+            <Select placeholder="桁架" onChange={this.onChange}>
+              <Option value="1">2米</Option>
+              <Option value="2">1米</Option>
+              <Option value="3">0.8米</Option>
+              <Option value="4">0.5米</Option>
+              <Option value="5">0.2米</Option>
+            </Select>
           </FormItem>
           <FormItem name='longmenjia' label={t`龙门架`} hasFeedback {...formItemLayout}>
             <InputNumber min={50} max={70} style={{ width: 275 }}  />
