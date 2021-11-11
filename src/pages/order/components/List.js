@@ -28,7 +28,7 @@ class List extends PureComponent {
   render() {
     const { onDeleteItem, onEditItem, datasource, ...tableProps } = this.props
 
-    console.log("===3.1 Order List this.props==========", this.props)
+    console.log("===3.1 Order List this.props==========", this.props, datasource)
 
     const columns = [
       // {
@@ -75,6 +75,13 @@ class List extends PureComponent {
         dataIndex: 'buman',
         key: 'buman',
         // width: '7%',
+      },
+      {
+        title: <Trans><strong>主桌器皿</strong></Trans>,
+        dataIndex: 'vessel',
+        key: 'vessel',
+        // width: '7%',
+        render: text => <Avatar src={require('../../../../assets/images/white.png')} />
       },
       {
         title: <Trans><strong>椅背结</strong></Trans>,

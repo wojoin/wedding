@@ -6,11 +6,14 @@ import { t } from "@lingui/macro"
 // import Rater from "../../../utils/Rater.js"
 import locale from 'antd/es/date-picker/locale/zh_CN';
 
-import { Image } from 'antd';
+import TieyiImage from './Tieyi'
+import TtaiImage from './Ttai'
+import BumanImage from './Buman'
+import CarpetImage from './Carpet'
+import VesselImage from './Vessel'
 
 const { Option } = Select;
 const FormItem = Form.Item
-
 
 const weddinghotel1 = "香格里拉";
 const weddinghotel2 = "绿地洲际酒店";
@@ -55,7 +58,11 @@ class OrderModal extends PureComponent {
           data.tieyi = 1
         }
         if(!data.buman) {
-          data.buman = 60
+          data.buman = 1
+        }
+
+        if(!data.vessel) {
+          data.vessel = 1
         }
 
         if(!data.chairknot) {
@@ -121,24 +128,62 @@ class OrderModal extends PureComponent {
             <Input />
           </FormItem>
           <FormItem name='ttaitool' label={t`T台道具`} hasFeedback {...formItemLayout}>
-            <InputNumber min={50} max={100} style={{ width: 275 }} />
+            <Select placeholder="T台道具" onChange={this.onChange}>
+              <Option value="1">T台1</Option>
+              <Option value="2">T台2</Option>
+              <Option value="3">T台3</Option>
+              <Option value="4">T台4</Option>
+            </Select>
+            <TtaiImage />
           </FormItem>
 
           <FormItem name='tieyi' label={t`铁艺`} hasFeedback {...formItemLayout}>
-            <InputNumber min={1} max={10} style={{ width: 275 }} />
-            <Image
-              width={200}
-              src="https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp"
-            />
+            {/* <InputNumber min={1} max={10} style={{ width: 275 }} /> */}
+            <Select placeholder="铁艺" onChange={this.onChange}>
+              <Option value="1">铁艺1</Option>
+              <Option value="2">铁艺2</Option>
+              <Option value="3">铁艺3</Option>
+              <Option value="4">铁艺4</Option>
+              <Option value="5">铁艺5</Option>
+              <Option value="6">铁艺6</Option>
+              <Option value="7">铁艺7</Option>
+              <Option value="8">铁艺8</Option>
+              <Option value="9">铁艺9</Option>
+              <Option value="10">铁艺10</Option>
+            </Select>
+            <TieyiImage />
           </FormItem>
           <FormItem name='buman' label={t`布幔`} hasFeedback {...formItemLayout}>
-            <InputNumber min={20} max={80} style={{ width: 275 }}  />
+            {/* <InputNumber min={20} max={80} style={{ width: 275 }}  /> */}
+            <Select placeholder="布幔" onChange={this.onChange}>
+              <Option value="1">布幔1</Option>
+              <Option value="2">布幔2</Option>
+            </Select>
+            <BumanImage />
+          </FormItem>
+          <FormItem name='vessel' label={t`主桌器皿`} hasFeedback {...formItemLayout}>
+          <Select placeholder="主桌器皿" onChange={this.onChange}>
+              <Option value="1">主桌器皿1</Option>
+              <Option value="2">主桌器皿2</Option>
+              <Option value="3">主桌器皿3</Option>
+              <Option value="4">主桌器皿4</Option>
+              <Option value="5">主桌器皿5</Option>
+              <Option value="6">主桌器皿6</Option>
+              <Option value="7">主桌器皿7</Option>
+              <Option value="8">主桌器皿8</Option>
+              <Option value="9">主桌器皿9</Option>
+            </Select>
+            <VesselImage />
           </FormItem>
           <FormItem name='chairknot' label={t`椅背结`} hasFeedback {...formItemLayout}>
             <InputNumber min={10} max={200} style={{ width: 275 }}  />
           </FormItem>
           <FormItem name='carpet' label={t`地毯`} hasFeedback {...formItemLayout}>
-            <InputNumber min={1} max={10} style={{ width: 275 }}  />
+          <Select placeholder="地毯" onChange={this.onChange}>
+              <Option value="1">地毯1</Option>
+              <Option value="2">地毯2</Option>
+            </Select>
+            <CarpetImage />
           </FormItem>
 
           <FormItem name='palight' label={t`PA灯`} hasFeedback {...formItemLayout}>
