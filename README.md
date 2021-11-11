@@ -84,3 +84,10 @@ We very much welcome your contribution, you can build together with us in the fo
 - Use Ant Design Pro in your daily work.
 - Submit [GitHub issues](http://github.com/zuiidea/antd-admin/issues)s to report bugs or ask questions.
 - Propose [Pull Request](http://github.com/zuiidea/antd-admin/pulls) to improve our code.
+
+
+# Deployment
+1. install git, NodeJS
+2. clone wedding code
+3. npm install
+4. npm run start
