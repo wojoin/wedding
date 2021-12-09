@@ -102,7 +102,7 @@ or docker-compose
 - `docker-compose -f docker-compose.dev.yml up`
 
 ## Docker push
-
+docker.io or docekr.com
 - `docker login -u jondocker90 -p <password> docker.io`
 - `docker tag wedding:1.0.0 jondocker90/jondocker90/wedding:1.0.0`
 - `docker push jondocker90/jondocker90/wedding:1.0.0`
