@@ -101,5 +101,6 @@ We very much welcome your contribution, you can build together with us in the fo
 
 ## Docker push
 
-`docker login -u jondocker90 -p <password> docker.io`
-`docker tar wedding:1.0.0 jondocker90/jondocker90/wedding:1.0.0`
+- `docker login -u jondocker90 -p <password> docker.io`
+- `docker tag wedding:1.0.0 jondocker90/jondocker90/wedding:1.0.0`
+- `docker push jondocker90/jondocker90/wedding:1.0.0`
