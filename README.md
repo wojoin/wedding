@@ -88,6 +88,6 @@ We very much welcome your contribution, you can build together with us in the fo
 
 # Deployment
 1. install git, NodeJS
-2. clone wedding code
-3. npm install
-4. npm run start
+2. clone wedding code(demo branch), `git checkout -b demo origin/demo`
+3. `npm install`
+4. `npm run start`
