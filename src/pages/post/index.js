@@ -53,7 +53,7 @@ class Post extends PureComponent {
   render() {
     const { location } = this.props
     const { query } = location
-
+    console.log("===page post===")
     return (
       <Page inner>
         <Tabs

@@ -2,21 +2,21 @@ import { Constant } from './_utils'
 const { ApiPrefix } = Constant
 
 const database = [
-  {
-    id: '1',
-    icon: 'dashboard',
-    name: 'Dashboard',
-    zh: {
-      name: '仪表盘'
-    },
-    'pt-br': {
-      name: 'Dashboard'
-    },
-    route: '/dashboard',
-  },
+  // {
+  //   id: '1',
+  //   icon: 'dashboard',
+  //   name: 'Dashboard',
+  //   zh: {
+  //     name: '仪表盘'
+  //   },
+  //   'pt-br': {
+  //     name: 'Dashboard'
+  //   },
+  //   route: '/dashboard',
+  // },
   {
     id: '2',
-    breadcrumbParentId: '1',
+    breadcrumbParentId: '',
     name: '婚礼酒店',
     zh: {
       name: '婚礼酒店'
@@ -25,11 +25,91 @@ const database = [
       name: 'Usuário'
     },
     icon: 'home',
-    route: '/user',
+    route: '/hotel',
   },
   {
-    id: '7',
-    breadcrumbParentId: '1',
+    id: '21',
+    menuParentId: '-1',
+    breadcrumbParentId: '2',
+    name: '酒店详情',
+    zh: {
+      name: '酒店详情'
+    },
+    'pt-br': {
+      name: 'Detalhes do usuário'
+    },
+    route: '/hotel/:id',
+  },
+  {
+    id: '3',
+    breadcrumbParentId: '',
+    name: '订单管理',
+    zh: {
+      name: '订单管理'
+    },
+    'pt-br': {
+      name: 'Usuário'
+    },
+    icon: 'home',
+    route: '/order',
+  },
+  {
+    id: '31',
+    menuParentId: '-1',
+    breadcrumbParentId: '3',
+    name: '订单详情',
+    zh: {
+      name: '订单详情'
+    },
+    'pt-br': {
+      name: 'Detalhes do usuário'
+    },
+    route: '/order/:id',
+  },
+
+  {
+    id: '6',
+    breadcrumbParentId: '',
+    name: '档期',
+    zh: {
+      name: '档期'
+    },
+    'pt-br': {
+      name: 'Detalhes do usuário'
+    },
+    icon: 'schedule',
+    route: '/schedule',
+  },
+  {
+    id: '61',
+    menuParentId: '-1',
+    breadcrumbParentId: '6',
+    name: '档期详情',
+    zh: {
+      name: '档期详情'
+    },
+    'pt-br': {
+      name: 'Detalhes do usuário'
+    },
+    route: '/schedule/:date',
+  },
+
+  {
+    id: '8',
+    breadcrumbParentId: '',
+    name: '供应商管理',
+    zh: {
+      name: '供应商管理'
+    },
+    'pt-br': {
+      name: '供应商管理'
+    },
+    icon: 'emcee',
+  },
+  {
+    id: '11',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
     name: '婚礼司仪',
     zh: {
       name: '婚礼司仪'
@@ -41,8 +121,9 @@ const database = [
     route: '/post',
   },
   {
-    id: '8',
-    breadcrumbParentId: '1',
+    id: '12',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
     name: '化妆师',
     zh: {
       name: '化妆师'
@@ -54,8 +135,9 @@ const database = [
     route: '/wedding-plan',
   },
   {
-    id: '9',
-    breadcrumbParentId: '1',
+    id: '13',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
     name: '婚纱摄影',
     zh: {
       name: '婚纱摄影'
@@ -67,8 +149,9 @@ const database = [
     route: '/wedding-video',
   },
   {
-    id: '10',
-    breadcrumbParentId: '1',
+    id: '14',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
     name: '婚纱摄像',
     zh: {
       name: '婚纱摄像'
@@ -80,8 +163,9 @@ const database = [
     route: '/wedding-photo',
   },
   {
-    id: '11',
-    breadcrumbParentId: '1',
+    id: '15',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
     name: '婚纱照',
     zh: {
       name: '婚纱照'
@@ -93,8 +177,9 @@ const database = [
     route: '/wedding-album',
   },
   {
-    id: '12',
-    breadcrumbParentId: '1',
+    id: '16',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
     name: '婚纱礼服',
     zh: {
       name: '婚纱礼服'
@@ -105,25 +190,14 @@ const database = [
     icon: 'user',
     route: '/wedding-dress',
   },
+  
   {
-    id: '21',
-    menuParentId: '-1',
-    breadcrumbParentId: '2',
-    name: 'User Detail',
+    id: '17',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
+    name: '婚车租赁',
     zh: {
-      name: '用户详情'
-    },
-    'pt-br': {
-      name: 'Detalhes do usuário'
-    },
-    route: '/user/:id',
-  },
-  {
-    id: '3',
-    breadcrumbParentId: '1',
-    name: '婚车',
-    zh: {
-      name: 'Request'
+      name: '婚车租赁'
     },
     'pt-br': {
       name: 'Requisição'
@@ -133,7 +207,9 @@ const database = [
   },
   {
     id: '4',
-    breadcrumbParentId: '1',
+    // breadcrumbParentId: '2',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
     name: '婚品商城',
     zh: {
       name: 'UI组件'
@@ -144,9 +220,9 @@ const database = [
     icon: 'wedding-gift',
   },
   {
-    id: '45',
-    breadcrumbParentId: '4',
+    id: '41',
     menuParentId: '4',
+    breadcrumbParentId: '4',
     name: '酒',
     zh: {
       name: 'Editor'
@@ -159,7 +235,8 @@ const database = [
   },
   {
     id: '5',
-    breadcrumbParentId: '1',
+    menuParentId: '8',
+    breadcrumbParentId: '8',
     name: 'Charts',
     zh: {
       name: 'Charts'

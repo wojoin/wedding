@@ -121,7 +121,7 @@ class PrimaryLayout extends PureComponent {
               onClose={onCollapseChange.bind(this, !collapsed)}
               visible={!collapsed}
               placement="left"
-              width={200}
+              width={800}
               style={{
                 padding: 0,
                 height: '100vh',
@@ -134,7 +134,7 @@ class PrimaryLayout extends PureComponent {
           )}
           <div
             className={styles.container}
-            style={{ paddingTop: config.fixedHeader ? 72 : 0 }}
+            style={{ paddingTop: config.fixedHeader ? 48 : 0 }}
             id="primaryLayout"
           >
             <Header {...headerProps} />

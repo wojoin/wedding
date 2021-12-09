@@ -2,17 +2,28 @@ export default {
   queryRouteList: '/routes',
 
   queryUserInfo: '/user',
-  // queryUserInfo: '/wedding-hotel',
   logoutUser: '/user/logout',
   loginUser: 'POST /user/login',
 
-  queryUser: '/user/:id',
-  queryUserList: '/users',
-  // queryUserList: '/wedding-hotels',
-  updateUser: 'Patch /user/:id',
-  createUser: 'POST /user',
-  removeUser: 'DELETE /user/:id',
-  removeUserList: 'POST /users/delete',
+  queryOrder: '/order/:id',
+  queryOrderList: '/orders',
+  createOrder: 'POST /order',
+  updateOrder: 'PATCH /order/:id',
+  removeOrder: 'DELETE /order/:id',
+  removeOrderList: 'POST /orders/delete',
+
+  // hotel
+  queryHotelInfo: '/hotel',
+  queryHotelList: '/hotels',
+  queryHotel: '/hotel/:id',
+  createHotel: 'POST /hotel',
+  updateHotel: 'PATCH /hotel/:id',
+  removeHotel: 'DELETE /hotel/:id',
+  removeHotelList: 'POST /hotels/delete',
+
+  // schedule
+  querySchedule: '/schedule/:date',
+
 
   queryPostList: '/posts',
 
@@ -22,5 +33,5 @@ export default {
   queryPostList4: '/wedding-album',
   queryPostList5: '/wedding-car',
 
-  queryDashboard: '/dashboard',
+  // queryDashboard: '/dashboard',
 }

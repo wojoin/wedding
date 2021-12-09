@@ -15,7 +15,7 @@ const { queryRouteList, logoutUser, queryUserInfo } = api
 const goDashboard = () => {
   if (pathToRegexp(['/', '/login']).exec(window.location.pathname)) {
     history.push({
-      pathname: '/dashboard',
+      pathname: '/hotel',
     })
   }
 }
@@ -29,7 +29,7 @@ export default {
         icon: 'laptop',
         name: 'Dashboard',
         zhName: '仪表盘',
-        router: '/dashboard',
+        router: '/hotel',
       },
     ],
     locationPathname: '',
@@ -85,12 +85,13 @@ export default {
         return
       }
       const { locationPathname } = yield select(_ => _.app)
+      console.log("===app locationPathname===", locationPathname)
       const { success, user } = yield call(queryUserInfo, payload)
       if (success && user) {
         const { list } = yield call(queryRouteList)
         const { permissions } = user
         // 所有的路由
-        console.log("==============route===========", list)
+        console.log("===route===", list)
         let routeList = list
         if (
           permissions.role === ROLE_TYPE.ADMIN ||
@@ -115,6 +116,7 @@ export default {
         store.set('isInit', true)
         goDashboard()
       } else if (queryLayout(config.layouts, locationPathname) !== 'public') {
+        console.log("===app push path login===", locationPathname)
         history.push({
           pathname: '/login',
           search: stringify({
