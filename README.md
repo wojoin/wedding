@@ -94,6 +94,6 @@ We very much welcome your contribution, you can build together with us in the fo
 
 
 ## Docker
-`docker build -t wedding:1.0.0 .`
-`docker run -d -p 7000:7000 wedding:1.0.0`
-`docker logs -f <containerid>`
+- `docker build -t wedding:1.0.0 .`
+- `docker run -d -p 7000:7000 wedding:1.0.0`
+- `docker logs -f <containerid>`
