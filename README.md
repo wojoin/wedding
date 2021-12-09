@@ -91,3 +91,8 @@ We very much welcome your contribution, you can build together with us in the fo
 2. clone wedding code(demo branch), `git checkout -b demo origin/demo`
 3. `npm install`
 4. `npm run start`
+
+
+## Docker
+`docker build -t wedding:1.0.0 .`
+`docker run -d -p 7000:7000 wedding:1.0.0`
